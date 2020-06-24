@@ -133,8 +133,12 @@ catch(Exception $e) {
    }
    public function savecustomer(Request $request)
    {
-      
      $customer=new customer();
+     $this->validate($request,[
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:customers',
+            'mobile' => 'required|min:10|numeric|max:10|unique:customers',
+       ]);
        $customer->name=$request->name;
        $customer->email=$request->email;
        $customer->mobile=$request->mobile;
