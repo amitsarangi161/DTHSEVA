@@ -65,7 +65,7 @@
          elseif($rechrgeorder->paymentstatus=="FAILED"){
          $ps="danger";
        }
-       elseif($rechrgeorder->paymentstatus=="SUCCESS"){
+       elseif($rechrgeorder->paymentstatus=="PAID"){
          $ps="success";
        }
        else{
