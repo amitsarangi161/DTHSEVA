@@ -1219,7 +1219,7 @@ catch(Exception $e){
             ->where('mobilerechargeorders.user_id',$uid)
       
       ->orderBy('mobilerechargeorders.id','desc')
-      ->get();
+      ->paginate(5);
      
       $wallet=wallet::where('user_id',$uid)->get();
       $walletbal=$wallet->sum('credit')-$wallet->sum('debit');
@@ -1277,7 +1277,7 @@ catch(Exception $e){
             ->where('rechargeorders.user_id',$uid)
       
       ->orderBy('rechargeorders.id','desc')
-      ->get();
+      ->paginate(5);
       
      
       $wallet=wallet::where('user_id',$uid)->get();
