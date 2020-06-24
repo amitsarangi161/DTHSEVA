@@ -64,7 +64,7 @@ border-top: 5px solid #de5e00;
 }
 .iconx {
    font-weight: bold;
-   font-size: 16px;
+   font-size: 16px!important;
 }
 
 </style>
@@ -89,37 +89,37 @@ border-top: 5px solid #de5e00;
             <li class="{{ Request::is('myaccount') ? 'active' : '' }}">
               <a href="/myaccount">
               <i class="fa fa-home iconx"></i>
-              <strong>Home</strong> </a>
+              Home </a>
             </li>
             <li class="{{ Request::is('myaccount/myproductorders') ? 'active' : '' }}">
               <a href="/myaccount/myproductorders">
              <i class="fa fa-shopping-cart iconx"></i>
-              <strong>Product Orders </strong></a>
+              Product Orders </a>
             </li>
             <li class="{{ Request::is('myaccount/mymobilerecharges') ? 'active' : '' }}">
               <a href="/myaccount/mymobilerecharges">
-             <i class="fa fa-mobile" style="font-size: 19px;"></i>
-              <strong>Mobile Recharges</strong></a>
+             <i class="fa fa-mobile iconx" style="font-size: 18px!important;"></i>
+              Mobile Recharges</a>
             </li>
             <li class="{{ Request::is('myaccount/mydthrecharges') ? 'active' : '' }}">
               <a href="/myaccount/mydthrecharges">
               <i class="fa fa-tv iconx"></i>
-              <strong>DTH Recharges</strong> </a>
+              DTH Recharges </a>
             </li>
             <li class="{{ Request::is('myaccount/myprofile') ? 'active' : '' }}">
               <a href="/myaccount/myprofile">
              <i class="fa fa-user iconx"></i>
-              <strong>My Account</strong></a>
+              My Account</a>
             </li>
             <li class="{{ Request::is('myaccount/mywallet') ? 'active' : '' }}">
               <a href="/myaccount/mywallet">
               <i class="fa fa-credit-card iconx"></i>
-              <strong>My Wallet (INR. {{$walletbal}})</strong></a>
+              My Wallet (INR. {{$walletbal}})</a>
             </li>
             <li>
               <a href="/userLogout" onclick="return confirm('Do You want to Log out')">
               <i class="fa fa-sign-out"></i>
-              <strong>Log Out </strong></a>
+              Log Out </a>
             </li>
           </ul>
     </div>
