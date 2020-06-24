@@ -11,6 +11,40 @@
 	border-top: 5px solid #de5e00;
 }
 </style>
+
+<table class="table">
+	<form action="/orders/productorders" method="get">
+	<tr>
+		<td><strong>PAYMENT STATUS</strong></td>
+		<td>
+			<select name="paymentstatus" required="" class="form-control">
+				<option value="ALL" {{(Request::get('paymentstatus')=='ALL')?'selected':''}}>ALL</option>
+				<option value="PENDING" {{(Request::get('paymentstatus')=='PENDING')?'selected':''}}>PENDING</option>
+				<option value="PAID" {{(Request::get('paymentstatus')=='PAID')?'selected':''}}>PAID</option>
+				<option value="FAILED" {{(Request::get('paymentstatus')=='FAILED')?'selected':''}}>FAILED</option>	
+			</select>
+		</td>
+		<td><strong>ORDER STATUS</strong></td>
+		<td>
+			<select name="orderstatus" required="" class="form-control">
+				<option value="ALL" {{(Request('orderstatus')=='ALL')?'selected':''}}>ALL</option>
+				@foreach($orderstatuses as $orderstatus)
+				<option value="{{$orderstatus->orderstatus}}">{{$orderstatus->orderstatus}}</option>
+				@endforeach
+			</select>
+		</td>
+		<td>
+			<input type="text" name="search" placeholder="Enter a Search Keyword" value="{{Request::get('search')}}" class="form-control">
+		</td>
+		<td><button type="submit" class="btn btn-success">Filter</button></td>
+		@if(Request::has('paymentstatus'))
+        <td><a href="/orders/productorders" class="btn btn-danger">Clear</a></td>
+		@endif
+
+	</tr>
+	</form>
+</table>
+
 <div style="overflow-x:auto;">
 <table class="table table-striped table-bordered table-hover table-responsive table-compact">
 	<thead class="bg-navy">
