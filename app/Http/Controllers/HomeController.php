@@ -115,4 +115,42 @@ catch(Exception $e) {
         }
        return redirect('/home');
     }
+    public function addcustomer(Request $request)
+   {
+      $customers=customer::orderBy('created_at', 'desc');
+
+       if ($request->has('search') && $request->get('search')!='') {
+          $keyword=$request->get('search');
+          $customers=$customers->where(function ($query) use($keyword) {
+          $query->where('customers.id', 'like', '%' . $keyword . '%')
+           ->orWhere('customers.name', 'like', '%' . $keyword . '%')
+           ->orWhere('customers.email', 'like', '%' . $keyword . '%')
+           ->orWhere('customers.mobile', 'like', '%' . $keyword . '%');
+      });
+       }
+       $customers=$customers->paginate(10);
+      return view('addcustomer',compact('customers'));
+   }
+   public function savecustomer(Request $request)
+   {
+      
+     $customer=new customer();
+       $customer->name=$request->name;
+       $customer->email=$request->email;
+       $customer->mobile=$request->mobile;
+       $customer->password= "dthseva123";
+       $customer->save();
+       Session::flash('msg','Customer Added Successfully');
+       return back();
+   }
+   public function updatecustomer(Request $request)
+   {
+      $customer=customer::find($request->uid);
+      $customer->name=$request->name;
+      $customer->email=$request->email;
+      $customer->mobile=$request->mobile;
+      $customer->save();
+    Session::flash('msg','Customer Updated Successfully');
+    return back();
+   }
 }

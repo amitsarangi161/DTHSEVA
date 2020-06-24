@@ -141,4 +141,10 @@ Route::post('/offerimage','HomeController@saveofferimage');
 
 Route::get('/cms/add-banners','BannersController@index');
 Route::post('/ajaxAddbanner','AjaxController@addBanners');
+
+
+Route::get('/customers/addcustomer','HomeController@addcustomer');
+Route::post('/savecustomer','HomeController@savecustomer');
+Route::post('/updatecustomer','HomeController@updatecustomer');
+
 });

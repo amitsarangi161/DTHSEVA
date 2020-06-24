@@ -302,9 +302,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            <li class="{{ Request::is('customers/addcustomer') ? 'active' : '' }}"><a href="/customers/addcustomer"><i class="fa fa-circle-o text-red"></i>Add New Customer</a></li>
             <li class="{{ Request::is('customers/viewallcustomer') ? 'active' : '' }}"><a href="/customers/viewallcustomer"><i class="fa fa-circle-o text-red"></i>View all Customer</a></li>
-             
-             
         
           </ul>
   </li>
