@@ -9,7 +9,7 @@ use App\company;
 use App\customer;
 use App\order;
 use App\rechargeorder;
-use App\mobilerechargeorder;
+use App\Mobilerechargeorder;
 
 use Session;
 class HomeController extends Controller
@@ -38,7 +38,7 @@ class HomeController extends Controller
         $totalproducts=product::where('id','>',0)->count();
         $faileddthrechargeorders=rechargeorder::where('paymentstatus','PAID')
           ->where('orderstatus', '=', 'FAILED')->count(); 
-        $failedmobilerechargeorders=mobilerechargeorder::where('paymentstatus','PAID')
+        $failedmobilerechargeorders=Mobilerechargeorder::where('paymentstatus','PAID')
           ->where('orderstatus', '=', 'FAILED')->count();
 
         return view('home',compact('customers','porders','rorders','totalproducts','faileddthrechargeorders','failedmobilerechargeorders'));
