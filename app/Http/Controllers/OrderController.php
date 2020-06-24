@@ -91,17 +91,48 @@ catch(Exception $e){
       return back();
     }
 
-    public function productorders()
+    public function productorders(Request $request)
     {
+
+      $orderstatuses=order::select('orderstatus')->groupBy('orderstatus')->get();
       $orders=order::select('orders.*','products.name as productname','orderaddresses.address','orderaddresses.pincode','orderaddresses.city','orderaddresses.state','customers.name as orderby')
       ->leftJoin('products','orders.productid','products.id')
       ->leftJoin('orderaddresses','orderaddresses.orderid','orders.id')
       ->leftJoin('customers','customers.id','orders.userid')
       ->groupBy('orders.id')
-      ->orderBy('orders.id','desc')
-      ->paginate(20);
-     
-      return view('productorders',compact('orders'));
+      ->orderBy('orders.id','desc');
+
+      if ($request->has('paymentstatus') && $request->get('paymentstatus')!='ALL') {
+
+          $orders=$orders->where('paymentstatus',$request->get('paymentstatus'));
+       }
+       if ($request->has('orderstatus') && $request->get('orderstatus')!='ALL') {
+
+
+          $orders=$orders->where('orderstatus',$request->get('orderstatus'));
+       }
+       if ($request->has('search') && $request->get('search')!='') {
+          $keyword=$request->get('search');
+          $orders=$orders->where(function ($query) use($keyword) {
+        $query->where('orders.id', 'like', '%' . $keyword . '%')
+           ->orWhere('orders.created_at', 'like', '%' . $keyword . '%')
+           ->orWhere('orders.productprice', 'like', '%' . $keyword . '%')
+           ->orWhere('orders.amountpaid', 'like', '%' . $keyword . '%')
+           ->orWhere('orders.discount', 'like', '%' . $keyword . '%')
+           ->orWhere('orders.couponcode', 'like', '%' . $keyword . '%')
+           ->orWhere('customers.name', 'like', '%' . $keyword . '%')
+           ->orWhere('orders.orderstatus', 'like', '%' . $keyword . '%')
+           ->orWhere('products.name', 'like', '%' . $keyword . '%')
+           ->orWhere('orderaddresses.address', 'like', '%' . $keyword . '%')
+           ->orWhere('orderaddresses.pincode', 'like', '%' . $keyword . '%')
+           ->orWhere('orderaddresses.city', 'like', '%' . $keyword . '%')
+           ->orWhere('orderaddresses.state', 'like', '%' . $keyword . '%')
+           ->orWhere('orders.paymentstatus', 'like', '%' . $keyword . '%');
+      });
+       }
+       $orders=$orders->orderBy('orders.created_at','desc')
+       ->paginate(10);
+      return view('productorders',compact('orders','orderstatuses'));
     }
 
     public function orderdetails($oid)
