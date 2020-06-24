@@ -76,7 +76,7 @@ border-top: 5px solid #de5e00;
 				
 <div class="myaccount">
 
-<div class="col-md-3 sidebar">
+<div class="col-md-3 col-lg-3 col-sm-3 sidebar">
   <div class="fadeInUp" style="background-color: #e1e1e1;">
   	<img style="width: 82%; padding: 10px;" class="img img-responsive " src="{{asset('images/dth.png')}}">
   	
@@ -130,7 +130,7 @@ border-top: 5px solid #de5e00;
 
 
 
-	<div class="col-md-9">
+	<div class="col-md-9 col-lg-9 col-sm-9">
     @yield('sidemenucontent')
 
   </div>
