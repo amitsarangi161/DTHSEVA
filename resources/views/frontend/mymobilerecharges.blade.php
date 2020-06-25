@@ -42,9 +42,7 @@
             <div class="col-md-6">
               <h5>Mob. No : {{$rechrgeorder->mobileno}}</h5>
             </div>
-            <div class="col-md-6">
-              <h5>Vc. No : 102987</h5>
-            </div>
+            
         </div>
         </div>
         </div>
@@ -64,7 +62,7 @@
          elseif($rechrgeorder->paymentstatus=="FAILED"){
          $ps="danger";
        }
-       elseif($rechrgeorder->paymentstatus=="SUCCESS"){
+       elseif($rechrgeorder->paymentstatus=="PAID"){
          $ps="success";
        }
        else{

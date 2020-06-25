@@ -797,7 +797,7 @@ catch(Exception $e){
   public function pgroutingrecharge($oid)
   {
         
-  $orderid=base64_descode($oid);
+  $orderid=base64_decode($oid);
   $orderdet=rechargeorder::where('uniqueoid',$orderid)->first();
   $cid=$orderdet->user_id;
   $custdet=customer::find($cid);
