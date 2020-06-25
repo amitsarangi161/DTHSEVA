@@ -16,7 +16,57 @@ else
 @endphp
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <style type="text/css">
-	
+.panel{
+  border-radius: 0px!important;
+}
+.panel-shadow {
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2);
+}
+.tab-content {
+    padding-left: 0px!important;
+}
+.agile-price span {
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: block;
+    color: #fff;
+    padding: 34px 0;
+    text-align: center;
+    background-color: #22c6be;
+}
+  .nav-tabs > li > a{border-radius: 0px;}
+  .nav-tabs {
+     overflow-x: auto;
+    overflow-y: hidden;
+    display: -webkit-box;  
+    display: -moz-box;   
+  }
+.nav-tabs>li {
+      float:none;
+    }
+div.scrollmenu {
+  background-color: #701e9d;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.scrollmenu a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 25px;
+  text-decoration: none;
+  font-size: 14px;
+}
+.plans td {
+    padding: 1.8rem;
+}
+.text-5 {
+    font-size: 21px !important;
+    font-size: 1.3125rem !important;
+}
 .order
 {
 	margin: 10px 0px;
@@ -52,13 +102,42 @@ else
       </div>
     
       <div class="form-group">
-    <label for="sel1">Select a Operator</label>
-  <select class="form-control"  name="brandid" id="brand" required="">
-  	<option value="">Select a Operator</option>
-  	@foreach($operators as $operator)
-    <option value="{{$operator->id}}">{{$operator->operatorname}}</option>
-   @endforeach
-  </select>
+        <label for="sel1">Select a Operator</label>
+        <select class="form-control"  name="brandid" id="brand" required="">
+        	<option value="">Select a Operator</option>
+        	@foreach($operators as $operator)
+          <option value="{{$operator->id}}">{{$operator->operatorname}}</option>
+         @endforeach
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="state">Select Circle</label>
+        <select class="form-control"  name="brandid" id="brand" required="">
+          <option value="">Select Circle</option>
+          <option value="Andhra Pradesh Telangana">Andhra Pradesh Telangana</option>
+          <option value="Assam">Assam</option>
+          <option value="Bihar Jharkhand">Bihar Jharkhand</option>
+          <option value="Chennai">Chennai</option>
+          <option value="Delhi NCR">Delhi NCR</option>
+          <option value="Gujarat">Gujarat</option>
+          <option value="Haryana">Haryana</option>
+          <option value="Himachal Pradesh">Himachal Pradesh</option>
+          <option value="Jammu Kashmir">Jammu Kashmir</option>
+          <option value="Karnataka">Karnataka</option>
+          <option value="Kerala">Kerala</option>
+          <option value="Kolkata">Kolkata</option>
+          <option value="Madhya Pradesh Chhattisgarh">Madhya Pradesh Chhattisgarh</option>
+          <option value="Maharashtra Goa">Maharashtra Goa</option>
+          <option value="Mumbai">Mumbai</option>
+          <option value="North East">North East</option>
+          <option value="Orissa">Orissa</option>
+          <option value="Punjab">Punjab</option>
+          <option value="Rajasthan">Rajasthan</option>
+          <option value="Tamil Nadu">Tamil Nadu</option>
+          <option value="UP East">UP East</option>
+          <option value="UP West">UP West</option>
+          <option value="West Bengal">West Bengal</option>
+        </select>
       </div>
     
   </div>
@@ -101,6 +180,108 @@ else
 </form>
 			</div><!-- /.contact-page -->
 		</div><!-- /.row -->
+</div>
+
+<!--recharge plan-->
+<div id="view-plans" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h5 class="modal-title">Browse Plans</h5>
+        <div class="scrollmenu">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab1" data-toggle="tab">Section 1</a></li>
+            <li><a href="#tab2" data-toggle="tab">Section 2</a></li>
+            <li><a href="#tab2" data-toggle="tab">Section 3</a></li>
+            <li><a href="#tab2" data-toggle="tab">Section 4</a></li>
+            <li><a href="#tab2" data-toggle="tab">Section 5</a></li>
+            <li><a href="#tab2" data-toggle="tab">Section 6</a></li>
+            <li><a href="#tab2" data-toggle="tab">Section 7</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-body">
+
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab1">
+               <div class="panel panel-info panel-shadow">
+                <div class="panel-body">
+                  <div class="row">
+                      <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
+                        <div class="agile-price">
+                           <span>₹. 10</span> 
+                        </div>
+                      </div>
+                      <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
+                        <span>Full Talktime + 100 SMS per day for 90 days.Full Talktime + 100 SMS per day for 90 days.Full Talktime + 100 SMS per day for 90 days.Full Talktime + 100 SMS per day for 90 days.Full Talktime + 100 SMS per day for 90 days.</span>
+                      </div>
+                      <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
+                        <button class="btn btn-sm btn-info shadow-none text-nowrap pull-right" type="submit">Select</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-info panel-shadow">
+                <div class="panel-body">
+                  <div class="row">
+                      <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
+                        <div class="agile-price">
+                           <span>₹. 10</span> 
+                        </div>
+                      </div>
+                      <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
+                        <span>Full Talktime + 100 SMS per day for 90 days.Full Talktime + 100 SMS per day for 90 days.Full Talktime + 100 SMS per day for 90 days.Full Talktime + 100 SMS per day for 90 days.Full Talktime + 100 SMS per day for 90 days.</span>
+                      </div>
+                      <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
+                        <button class="btn btn-sm btn-info shadow-none text-nowrap pull-right" type="submit">Select</button>
+                      </div>
+                    </div>
+                </div>
+            </div><div class="panel panel-info panel-shadow">
+                <div class="panel-body">
+                  <div class="row">
+                      <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
+                        <div class="agile-price">
+                           <span>₹. 10</span> 
+                        </div>
+                      </div>
+                      <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
+                        <span>Full Talktime + 100 SMS per day for 90 days.Full Talktime + 100 SMS per day for 90 days.Full Talktime + 100 SMS per day for 90 days.Full Talktime + 100 SMS per day for 90 days.Full Talktime + 100 SMS per day for 90 days.</span>
+                      </div>
+                      <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
+                        <button class="btn btn-sm btn-info shadow-none text-nowrap pull-right" type="submit">Select</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+                
+
+            </div>
+            <div class="tab-pane" id="tab2">
+              <div class="tab-pane active" id="tab1">
+               <div class="panel panel-info panel-shadow">
+                <div class="panel-body">
+                  <div class="row">
+                      <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
+                        <div class="agile-price">
+                           <span>₹. 10</span> 
+                        </div>
+                      </div>
+                      <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
+                        <span>Full Talktime + 100 SMS per day for 90 days.Full Talktime + 100 SMS per day for 90 days.Full Talktime + 100 SMS per day for 90 days.Full Talktime + 100 SMS per day for 90 days.Full Talktime + 100 SMS per day for 90 days.</span>
+                      </div>
+                      <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
+                        <button class="btn btn-sm btn-info shadow-none text-nowrap pull-right" type="submit">Select</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+  </div>
 </div>
 
 <!-- LOGIN MODAL START -->
@@ -195,9 +376,8 @@ else
          </div>
      
       </div></div>
-      
-      
   </div>
+
 
 @php
 $idnum=Session::get('userid')['uid'];
@@ -205,7 +385,9 @@ $idnum=Session::get('userid')['uid'];
 @endphp
 
 <script type="text/javascript">
-
+function openplan(){
+  $('#view-plans').modal('show');
+}
 
 
   function openforgotmodal()
