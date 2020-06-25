@@ -136,7 +136,6 @@ catch(Exception $e) {
      $customer=new customer();
      $this->validate($request,[
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:customers',
             'mobile' => 'required|numeric|digits:10|unique:customers',
        ]);
        $customer->name=$request->name;
