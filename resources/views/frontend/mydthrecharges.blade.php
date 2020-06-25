@@ -61,13 +61,13 @@
           @php
             if($rechrgeorder->paymentstatus=="PENDING"){
             $ps="info";
-          }
-         elseif($rechrgeorder->paymentstatus=="FAILED"){
-         $ps="danger";
-       }
-       elseif($rechrgeorder->paymentstatus=="PAID"){
-         $ps="success";
-       }
+            }
+            elseif($rechrgeorder->paymentstatus=="FAILED"){
+            $ps="danger";
+            }
+            elseif($rechrgeorder->paymentstatus=="PAID"){
+            $ps="success";
+            }
        else{
        $ps="default";
      }

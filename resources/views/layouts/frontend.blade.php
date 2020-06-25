@@ -107,7 +107,7 @@ border-top: 1px solid #c0c0c0;
             @endphp
               <li><a href="/myaccount"><i class="icon fa fa-user"></i>My Account</a></li>
               <li class="menu-item"><a href="/myaccount"><i class="fa fa-pencil" aria-hidden="true"></i><strong>  {{Session::get('userid')['name']}}</strong></a></li>
-              <li class="menu-item"><strong><a href="/#"><i class="fa fa-credit-card" aria-hidden="true"></i> INR. {{$walletbal}} </a></strong></li>
+              <li class="menu-item"><strong><a href="/myaccount/mywallet"><i class="fa fa-credit-card" aria-hidden="true"></i> INR. {{$walletbal}} </a></strong></li>
               <li class="menu-item"><a href="/userLogout"><i class="fa fa-sign-out" aria-hidden="true"></i> logout</a></li>
             @endif
 
