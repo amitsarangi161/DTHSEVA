@@ -28,7 +28,7 @@ border-top: 5px solid #de5e00;
 
 @if(Session::get('userid')['status'] =="Y")
 <script type="text/javascript">
-	location.replace('/myaccount');
+	location.replace('/');
 </script>
 
 @endif

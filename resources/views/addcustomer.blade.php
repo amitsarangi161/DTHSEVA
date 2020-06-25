@@ -33,7 +33,7 @@
           </tr>
           <tr>
             <td>MOBILE</td>
-            <td colspan="2"><input type="number" class="form-control" autocomplete="off" name="mobile" placeholder="ENTER MOBILE" ></td>
+            <td colspan="2"><input type="number" class="form-control" autocomplete="off" name="mobile" placeholder="ENTER MOBILE" required=""></td>
           </tr>       
         <tr>
             <td></td>
