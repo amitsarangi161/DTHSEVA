@@ -153,7 +153,7 @@ div.scrollmenu a {
   <div class="col-md-8 col-md-offset-2">
     
       
-         <button type="button" onclick="openplan();" class="pull-right btn btn-primary btn-sm">view plans</button>
+         <!-- <button type="button" onclick="openplan();" class="pull-right btn btn-primary btn-sm">view plans</button> -->
 
     
   </div>
