@@ -363,7 +363,9 @@ $url=file_get_contents("http://login.questersms.com/api/mt/SendSMS?user=DTHSEVA&
       $customer->save();
        $response=array('status'=>"Y",'uid'=>$customer->id,'email'=>$customer->email,'name'=>$customer->name,'mobile'=>$customer->mobile);
 
-        session(['userid' =>$response]);
+        //session(['userid' =>$response]);
+                  Session::put('userid', $response);
+                  Session::save();
         Session::flash('emeassage','Registered Successfully');
          return back();
       }
@@ -378,7 +380,9 @@ $url=file_get_contents("http://login.questersms.com/api/mt/SendSMS?user=DTHSEVA&
     //dd($uid);
        $response=array('status'=>"Y",'uid'=>$uid,'email'=>"",'name'=>"",'mobile'=>"");
 
-        session(['userid' =>$response]);
+        //session(['userid' =>$response]);
+         Session::put('userid', $response);
+         Session::save();
          return back();
         
     }
@@ -434,7 +438,9 @@ $url=file_get_contents("http://login.questersms.com/api/mt/SendSMS?user=DTHSEVA&
                {
               $userdetails=customer::where('mobile',$request->mobile)->first();
                $response=array('status'=>"Y",'uid'=>$userdetails->id,'email'=>$userdetails->email,'name'=>$userdetails->name,'mobile'=>$userdetails->mobile);
-                  session(['userid' =>$response]);
+                  //session(['userid' =>$response]);
+                  Session::put('userid', $response);
+                  Session::save();
                   return back();
               }
               else
@@ -452,7 +458,9 @@ $url=file_get_contents("http://login.questersms.com/api/mt/SendSMS?user=DTHSEVA&
             {
               $userdetails=customer::where('mobile',$request->mobile)->first();
                $response=array('status'=>"Y",'uid'=>$userdetails->id,'email'=>$userdetails->email,'name'=>$userdetails->name,'mobile'=>$userdetails->mobile);
-                  session(['userid' =>$response]);
+                  //session(['userid' =>$response]);
+                  Session::put('userid', $response);
+                  Session::save();
                   return back();
 
             }
@@ -750,7 +758,7 @@ catch(Exception $e){
   public function mobRechargeFromWallet($oid)
   {
       
-      $od=Mobilerechargeorder::select('mobilerechargeorders.*','mobileoperators.recharge_code')
+      $od=Mobilerechargeorder::select('mobilerechargeorders.*','mobileoperators.recharge_code','mobileoperators.postpaid_recharge_code')
              ->leftJoin('mobileoperators','mobilerechargeorders.brandid','=','mobileoperators.id')
              ->where('mobilerechargeorders.uniqueoid',$oid)
              ->first();
@@ -759,7 +767,14 @@ catch(Exception $e){
         $password=env('RECHARGE_API_PASSWORD','');
         $mobno=env('RECHARGE_API_MOBILE_NO','');
         $smspin=env('RECHARGE_API_SMSPIN','');
-        $provider=$od->recharge_code;
+        if ($od->recharge_type=='PREPAID') {
+            $provider=$od->recharge_code;
+        }
+        else
+        {
+            $provider=$od->postpaid_recharge_code;
+        }
+        
         $customerno=$od->mobileno;
         $amt=$od->amount;
         $trnid='OID'.$oid.'MOBCUSTID'.$od->user_id;
@@ -880,7 +895,13 @@ catch(Exception $e){
   {
          $transaction = PaytmWallet::with('receive');
          $response = $transaction->response();
+
          if($transaction->isSuccessful()){
+        $chk=paytmrecharge::where('orderid',$response['ORDERID'])
+             ->where('banktxnid',$response['BANKTXNID'])
+             ->count();
+        if($chk==0)
+        {
 
 
         
@@ -954,7 +975,8 @@ $url=file_get_contents("http://login.questersms.com/api/mt/SendSMS?user=DTHSEVA&
      }
 catch(Exception $e){
      print('Error: ' . $e->getMessage());
-}*/
+}*/     }
+        
         
         }
         else if($transaction->isFailed()){
@@ -988,14 +1010,18 @@ catch(Exception $e){
          $transaction = PaytmWallet::with('receive');
          $response = $transaction->response();
          if($transaction->isSuccessful()){
+           $chk=paytmrecharge::where('orderid',$response['ORDERID'])
+             ->where('banktxnid',$response['BANKTXNID'])
+             ->count();
 
-
+        if($chk==0)
+       {
 
         $order=Mobilerechargeorder::where('uniqueoid',$response['ORDERID'])->first();
         $order->paymentstatus="PAID";
         $order->save();
 
-        $od=Mobilerechargeorder::select('mobilerechargeorders.*','mobileoperators.recharge_code')
+        $od=Mobilerechargeorder::select('mobilerechargeorders.*','mobileoperators.recharge_code','mobileoperators.postpaid_recharge_code')
              ->leftJoin('mobileoperators','mobilerechargeorders.brandid','=','mobileoperators.id')
              ->where('mobilerechargeorders.uniqueoid',$response['ORDERID'])
              ->first();
@@ -1025,7 +1051,13 @@ catch(Exception $e){
         $password=env('RECHARGE_API_PASSWORD','');
         $mobno=env('RECHARGE_API_MOBILE_NO','');
         $smspin=env('RECHARGE_API_SMSPIN','');
-        $provider=$od->recharge_code;
+        if ($od->recharge_type=='PREPAID') {
+            $provider=$od->recharge_code;
+        }
+        else
+        {
+            $provider=$od->postpaid_recharge_code;
+        }
         $customerno=$od->mobileno;
         $amt=$od->amount;
         $trnid='OID'.$response['ORDERID'].'MOBCUSTID'.$od->user_id;
@@ -1054,6 +1086,10 @@ catch(Exception $e){
              $od1->orderstatus='FAILED';
          }
          $od1->save();
+
+           }
+
+         
         
         }
         else if($transaction->isFailed()){
@@ -1408,7 +1444,9 @@ catch(Exception $e){
      $customer->save();
      $userdetails=customer::where('id',$id)->first();
                $response=array('status'=>"Y",'uid'=>$userdetails->id,'email'=>$userdetails->email,'name'=>$userdetails->name,'mobile'=>$userdetails->mobile);
-                  session(['userid' =>$response]);
+                  //session(['userid' =>$response]);
+                  Session::put('userid', $response);
+                  Session::save();
 
      return back();
 

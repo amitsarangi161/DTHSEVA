@@ -11,8 +11,12 @@
 			<td><input type="text" class="form-control" name="operatorname" value="{{$operator->operatorname}}"></td>
 		</tr>
 		<tr>
-			<td>RECHARGE CODE<span style="color: red"> *</span></td>
+			<td>PREPAID RECHARGE CODE<span style="color: red"> *</span></td>
 			<td><input type="text" class="form-control" name="recharge_code" placeholder="ENTER RECHARGE CODE" required value="{{$operator->recharge_code}}"></td>
+		</tr>
+		<tr>
+			<td>POSTPAID RECHARGE CODE<span style="color: red"> *</span></td>
+			<td><input type="text" class="form-control" name="postpaid_recharge_code" placeholder="ENTER RECHARGE CODE" required value="{{$operator->postpaid_recharge_code}}"></td>
 		</tr>
 		<tr>
 			<td>CASH BACK(IN %)<span style="color: red"> *</span></td>

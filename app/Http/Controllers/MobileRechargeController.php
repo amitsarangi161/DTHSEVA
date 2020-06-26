@@ -15,6 +15,7 @@ class MobileRechargeController extends Controller
          $operator=Mobileoperator::find($id);
         $operator->operatorname=$request->operatorname;
         $operator->recharge_code=$request->recharge_code;
+        $operator->postpaid_recharge_code=$request->postpaid_recharge_code;
         $operator->cashback_percent=$request->cashback_percent;
         $rarefile = $request->file('brandlogo');
         if($rarefile!='')
@@ -46,6 +47,7 @@ class MobileRechargeController extends Controller
     	$operator=new Mobileoperator();
         $operator->operatorname=$request->operatorname;
         $operator->recharge_code=$request->recharge_code;
+        $operator->postpaid_recharge_code=$request->postpaid_recharge_code;
         $operator->cashback_percent=$request->cashback_percent;
         $rarefile = $request->file('brandlogo');
         if($rarefile!='')

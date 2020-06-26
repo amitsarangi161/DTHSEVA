@@ -97,8 +97,8 @@ div.scrollmenu a {
 
        <input type="radio" id="prepaid" name="type" value="PREPAID" checked="">
        <label for="prepaid"><strong>PREPAID</strong></label>
-       <input type="radio" id="postpaid" name="type" value="POSTPAID">
-       <label for="postpaid"><strong>POSTPAID</strong></label><br>
+      <!--  <input type="radio" id="postpaid" name="type" value="POSTPAID">
+       <label for="postpaid"><strong>POSTPAID</strong></label><br> -->
       </div>
     
       <div class="form-group">
@@ -112,7 +112,7 @@ div.scrollmenu a {
       </div>
       <div class="form-group">
         <label for="state">Select Circle</label>
-        <select class="form-control"  name="brandid" id="brand" required="">
+        <select class="form-control"  name="circle" id="circle" required="">
           <option value="">Select Circle</option>
           <option value="Andhra Pradesh Telangana">Andhra Pradesh Telangana</option>
           <option value="Assam">Assam</option>
@@ -183,7 +183,7 @@ div.scrollmenu a {
 </div>
 
 <!--recharge plan-->
-<div id="view-plans" class="modal fade" role="dialog">
+<!-- <div id="view-plans" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -282,7 +282,7 @@ div.scrollmenu a {
         </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- LOGIN MODAL START -->
  <div class="modal fade" id="login" role="dialog">
@@ -558,6 +558,8 @@ function openplan(){
     var brand=$('#brand').val();
     var rmn=$('#rmn').val();
     var amt=$('#amt').val();
+    var circle=$("#circle").val();
+    var type=$('input[name=type]:checked').val()
 
     var chk=false;
 
@@ -692,6 +694,8 @@ if (chk) {
 	 var brand=$('#brand').val();
 		var rmn=$('#rmn').val();
 		var amt=$('#amt').val();
+    var circle=$("#circle").val();
+    var type=$('input[name=type]:checked').val()
     if($('#walllet_bal').is(':checked')){
      wallet=true;
 }
@@ -719,6 +723,8 @@ else
                       brand: brand,
                       rmn:rmn,
                       amt:amt,
+                      circle:circle,
+                      type:type,
                       wallet:wallet
                      },
 

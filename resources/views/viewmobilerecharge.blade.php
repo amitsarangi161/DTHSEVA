@@ -20,6 +20,12 @@
 			<td>TRN NO</td>
             <td>{{$rechargeorder->trnid}}</td>
 		</tr>
+    <tr>
+      <td><strong>CIRCLE</strong></td>
+      <td>{{$rechargeorder->circle}}</td>
+      <td>RECHARGE TYPE</td>
+      <td>{{$rechargeorder->recharge_type}}</td>
+    </tr>
 		<tr>
 			<td><strong>RECHARGE MOB NO</strong></td>
 			<td>{{$rechargeorder->mobileno}}</td>

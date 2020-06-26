@@ -167,6 +167,8 @@ class AjaxController extends Controller
     $rechargeorder->brandid=$request->brand;
     $rechargeorder->mobileno=$request->rmn;
     $rechargeorder->amount=$request->amt;
+    $rechargeorder->circle=$request->circle;
+    $rechargeorder->recharge_type=$request->type;
     $rechargeorder->wallet_deduction=$wallet_deduction;
     $rechargeorder->orderstatus="PENDING";
     $rechargeorder->paymentstatus="PENDING";
@@ -190,6 +192,8 @@ class AjaxController extends Controller
     $rechargeorder->brandid=$request->brand;
     $rechargeorder->mobileno=$request->rmn;
     $rechargeorder->amount=$request->amt;
+    $rechargeorder->circle=$request->circle;
+    $rechargeorder->recharge_type=$request->type;
     $rechargeorder->orderstatus="PENDING";
     $rechargeorder->paymentstatus="PENDING";
     $rechargeorder->uniqueoid=time();
@@ -225,7 +229,9 @@ class AjaxController extends Controller
                {
               $userdetails=customer::where('mobile',$request->mobile)->first();
                $response=array('status'=>"Y",'uid'=>$userdetails->id,'email'=>$userdetails->email,'name'=>$userdetails->name,'mobile'=>$userdetails->mobile);
-                  session(['userid' =>$response]);
+                  //session(['userid' =>$response]);
+                  Session::put('userid', $response);
+                  Session::save();
                   $resp=['status'=>"Y",'response'=>$response];
               return response()->json($resp);
               }
@@ -244,7 +250,9 @@ class AjaxController extends Controller
             {
               $userdetails=customer::where('mobile',$request->mobile)->first();
                $response=array('status'=>"Y",'uid'=>$userdetails->id,'email'=>$userdetails->email,'name'=>$userdetails->name,'mobile'=>$userdetails->mobile);
-                  session(['userid' =>$response]);
+                  //session(['userid' =>$response]);
+                  Session::put('userid', $response);
+                  Session::save();
                   $resp=['status'=>"Y",'response'=>$response];
               return response()->json($resp);
 

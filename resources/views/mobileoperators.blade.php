@@ -15,9 +15,14 @@
 			<td><input type="text" class="form-control" name="operatorname" placeholder="ENTER OPERATOR NAME" required></td>
 		</tr>
 		<tr>
-			<td>RECHARGE CODE<span style="color: red"> *</span></td>
+			<td>PREPAID RECHARGE CODE<span style="color: red"> *</span></td>
 			<td><input type="text" class="form-control" name="recharge_code" placeholder="ENTER RECHARGE CODE" required></td>
 		</tr>
+		<tr>
+			<td>POSTPAID RECHARGE CODE<span style="color: red"> *</span></td>
+			<td><input type="text" class="form-control" name="postpaid_recharge_code" placeholder="ENTER RECHARGE CODE" required></td>
+		</tr>
+
 		<tr>
 			<td>CASH BACK(IN %)<span style="color: red"> *</span></td>
 			<td><input type="text" value="0" class="form-control" name="cashback_percent" placeholder="ENTER CASHBACK(IN %)" required></td>
@@ -40,7 +45,8 @@
 		<tr>
 			<th>Id</th>
 			<th>Brand Name</th>
-			<th>Recharge Code</th>
+			<th>Prepaid Recharge Code</th>
+			<th>Postpaid Recharge Code</th>
 			<th>Cashback(in %)</th>
 			<th>Brand Logo</th>
             <th>Edit</th>
@@ -55,6 +61,7 @@
 			<td>{{$operator->id}}</td>
 			<td>{{$operator->operatorname}}</td>
 			<td>{{$operator->recharge_code}}</td>
+			<td>{{$operator->postpaid_recharge_code}}</td>
 			<td>{{$operator->cashback_percent}}</td>
 			<td><img style="height:70px;width:95px;" src="{{ asset('/img/brandlogo/'.$operator->brandlogo )}}"></td>
             <td><a href="/editoperators/{{$operator->id}}" class="btn btn-success">Edit</a></td>

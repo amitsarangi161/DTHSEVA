@@ -42,13 +42,6 @@ Route::get('/myaccount/mydthrecharges','FrontendController@mydthrecharges');
 Route::get('/myaccount/myprofile','FrontendController@myprofile');
 Route::get('/myaccount/mywallet','FrontendController@mywallet');
 
-
-
-
-
-
-
-
 Route::get('/myaccount1','FrontendController@myaccount');
 Route::post('/cancelOrder','FrontendController@cancelOrder');
 Route::post('/addReview','FrontendController@addReview');
