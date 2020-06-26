@@ -38,13 +38,14 @@ class HomeController extends Controller
         $porders=order::where('id','>',0)->count();
         $rorders=rechargeorder::where('id','>',0)->count();
         $rorders=rechargeorder::where('id','>',0)->count();
+        $mobrorders=Mobilerechargeorder::where('id','>',0)->count();
         $totalproducts=product::where('id','>',0)->count();
         $faileddthrechargeorders=rechargeorder::where('paymentstatus','PAID')
           ->where('orderstatus', '=', 'FAILED')->count(); 
         $failedmobilerechargeorders=Mobilerechargeorder::where('paymentstatus','PAID')
           ->where('orderstatus', '=', 'FAILED')->count();
 
-        return view('home',compact('customers','porders','rorders','totalproducts','faileddthrechargeorders','failedmobilerechargeorders'));
+        return view('home',compact('customers','porders','rorders','totalproducts','faileddthrechargeorders','failedmobilerechargeorders','mobrorders'));
     }
     
     public function companypolicy()

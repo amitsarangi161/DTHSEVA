@@ -21,7 +21,7 @@ class OrderController extends Controller
 
     public function viewdthrecharge($id)
     {
-         $rechargeorder=rechargeorder::select('rechargeorders.*','brands.brandname','customers.name')
+         $rechargeorder=rechargeorder::select('rechargeorders.*','brands.brandname','customers.name','customers.mobile')
        ->leftJoin('brands','rechargeorders.brandid','=','brands.id')
        ->leftJoin('customers','rechargeorders.user_id','=','customers.id')
        ->orderBy('rechargeorders.created_at','desc')

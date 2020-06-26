@@ -26,6 +26,10 @@
 			<td>RECHARGE AMOUNT</td>
            <td>{{$rechargeorder->amount}}</td>
 		</tr>
+    <tr>
+      <td><strong>REGISTERED MOB NO</strong></td>
+      <td>{{$rechargeorder->mobileno}}</td>
+    </tr>
 		<tr>
 			<td><strong>RECHARGE STATUS</strong></td>
 			@if($rechargeorder->orderstatus=='PENDING')

@@ -19,20 +19,7 @@
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3>{{$rorders}}</h3>
-
-              <p>Total DTH Recharge Orders</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="/recharge/rechargeorders" class="small-box-footer">view all<i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
+   
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
@@ -63,10 +50,39 @@
             <a href="/psetup/viewallproduct" class="small-box-footer">view all<i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3>{{$rorders}}</h3>
+
+              <p>Total DTH Recharge Orders</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="/recharge/rechargeorders" class="small-box-footer">view all<i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
         <!-- ./col -->
       </div>
 
       <div class="row">
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-gray">
+            <div class="inner">
+              <h3>{{$mobrorders}}</h3>
+
+              <p>Total Mobile Recharge Orders</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="/recharge/mobilerechargeorders" class="small-box-footer">view all<i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+
 
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
