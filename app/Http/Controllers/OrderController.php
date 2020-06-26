@@ -43,7 +43,7 @@ class OrderController extends Controller
     }
     public function viewmobilerecharge($id)
     {
-         $rechargeorder=Mobilerechargeorder::select('mobilerechargeorders.*','mobileoperators.operatorname','customers.name')
+         $rechargeorder=Mobilerechargeorder::select('mobilerechargeorders.*','mobileoperators.operatorname','customers.name','customers.mobile')
        ->leftJoin('mobileoperators','mobilerechargeorders.brandid','=','mobileoperators.id')
        ->leftJoin('customers','mobilerechargeorders.user_id','=','customers.id')
        ->orderBy('mobilerechargeorders.created_at','desc')

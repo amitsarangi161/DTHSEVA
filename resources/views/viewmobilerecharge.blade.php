@@ -21,11 +21,17 @@
             <td>{{$rechargeorder->trnid}}</td>
 		</tr>
 		<tr>
-			<td><strong>CUST MOB NO</strong></td>
+			<td><strong>RECHARGE MOB NO</strong></td>
 			<td>{{$rechargeorder->mobileno}}</td>
 			<td>RECHARGE AMOUNT</td>
            <td>{{$rechargeorder->amount}}</td>
 		</tr>
+    <tr>
+      <td><strong>REGISTERED MOB NO</strong></td>
+      <td>{{$rechargeorder->mobile}}</td>
+      <td></td>
+      <td></td>
+    </tr>
 		<tr>
 			<td><strong>RECHARGE STATUS</strong></td>
 			@if($rechargeorder->orderstatus=='PENDING')
@@ -52,8 +58,22 @@
 			<td>{{$rechargeorder->recharge_res_msg}}</td>
 		</tr>
       <tr>
+      <td><strong>WALLET USED</strong></td>
+      <td>{{$rechargeorder->use_wallet}}</td>
+      <td>WALLET DEDUCTION</td>
+      <td>{{$rechargeorder->wallet_deduction}}</td>
+    </tr>
+      <tr>
+      <td>AMOUNT TO PAY</td>
+      <td>{{$rechargeorder->amttopay}}</td>
       <td><strong>WALLET CASHBACK</strong></td>
       <td>{{$walletbalgain}}</td>
+
+    </tr>
+     <tr>
+      <td>Time</td>
+      <td>{{$rechargeorder->created_at}}</td>
+     
 
     </tr>
 		

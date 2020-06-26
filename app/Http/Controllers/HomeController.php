@@ -12,6 +12,7 @@ use App\rechargeorder;
 use App\Mobilerechargeorder;
 use App\paytmrecharge;
 use App\onepayresponse;
+use App\wallet;
 
 use Session;
 class HomeController extends Controller
@@ -209,11 +210,21 @@ catch(Exception $e) {
     $onepayresponses=$onepayresponses->paginate(10);
     return view('onepayreport',compact('onepayresponses','statuses'));
    }
-   public function walletreport(){
-    $customernames=customer::select('name')->where('name','!=',"")->groupBy('name')->get();
-    //return $customernames;
-    $customers=customer::all();
-    return view('walletreport',compact('customers','customernames'));
+   public function walletreport(Request $request){
+    $customernames=customer::select('id','name','mobile')->where('name','!=',"")->groupBy('name')->get();
+
+    if($request->has('name'))
+    {
+        $wallets=wallet::select('wallets.*','customers.name')
+                 ->where('user_id',$request->get('name'))
+                 ->leftJoin('customers','wallets.user_id','=','customers.name')
+                 ->get();
+    }
+    else{
+      $wallets=array();
+    }
+   
+    return view('walletreport',compact('customernames','wallets'));
    }
 
 }

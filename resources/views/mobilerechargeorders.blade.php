@@ -58,12 +58,12 @@
 			<th>UNIQUE ORDERID</th>
 			<th>CUSTOMER NAME</th>
 			<th>OPERATOR NAME</th>
-		
-			<th>REGISTERED MOBILE NO</th>
+			<th>MOBILE NO</th>
 			<th>AMOUNT</th>
 			<th>RECHARGE STATUS</th>
 			<th>PAYMENT STATUS</th>
 			<th>RECHARGE API RESPONSE</th>
+			<th>TIME</th>
 			<th>ACTION</th>
 		</tr>
 	</thead>
@@ -91,6 +91,7 @@
               <td><span class="label label-danger">{{$rechargeorder->paymentstatus}}</span></td>
 			@endif
 			<td>{{$rechargeorder->recharge_res_msg}}</td>
+			<td>{{$rechargeorder->created_at}}</td>
 			<td>
 				<a href="/viewmobilerecharge/{{$rechargeorder->id}}" class="btn btn-primary">VIEW</a>
 			</td>

@@ -533,11 +533,11 @@ border-top: 1px solid #c0c0c0;
 </body>
 
  @if(Session::get('userid')['status'] !="Y" AND Session::get('offerapply')!='Y')
-<script>
+<!-- <script>
     $(document).ready(function(){
         $("#promobox").modal();
     });
-</script>
+</script> -->
 @endif
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();

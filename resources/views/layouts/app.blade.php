@@ -34,6 +34,7 @@
       <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css')}}">
       <!-- bootstrap wysihtml5 - text editor -->
       <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     
     
     <!-- Scripts -->
@@ -44,6 +45,7 @@
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <!-- Typeahead Initialization -->
 <!--     <script>
         jQuery(document).ready(function($) {
@@ -424,6 +426,9 @@ var jqf = $.noConflict();
   } else 
     jqf('#result').html('<button class="btn btn-success" type="submit" disabled>RESET NOW</button>');
 });
+
+  $('.select2').select2();
+
 </script>
 
 

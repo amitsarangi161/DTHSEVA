@@ -51,9 +51,23 @@
 			<td>RES MSG RECARGE</td>
 			<td>{{$rechargeorder->recharge_res_msg}}</td>
 		</tr>
-     <tr>
+         <tr>
+      <td><strong>WALLET USED</strong></td>
+      <td>{{$rechargeorder->use_wallet}}</td>
+      <td>WALLET DEDUCTION</td>
+      <td>{{$rechargeorder->wallet_deduction}}</td>
+    </tr>
+      <tr>
+      <td>AMOUNT TO PAY</td>
+      <td>{{$rechargeorder->amttopay}}</td>
       <td><strong>WALLET CASHBACK</strong></td>
       <td>{{$walletbalgain}}</td>
+
+    </tr>
+     <tr>
+      <td>Time</td>
+      <td>{{$rechargeorder->created_at}}</td>
+     
 
     </tr>
 
