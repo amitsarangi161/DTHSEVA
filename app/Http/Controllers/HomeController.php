@@ -10,6 +10,8 @@ use App\customer;
 use App\order;
 use App\rechargeorder;
 use App\Mobilerechargeorder;
+use App\paytmrecharge;
+use App\onepayresponse;
 
 use Session;
 class HomeController extends Controller
@@ -156,4 +158,62 @@ catch(Exception $e) {
     Session::flash('msg','Customer Updated Successfully');
     return back();
    }
+   public function paymentreport(Request $request){
+
+     $paytmstatus=paytmrecharge::where('status','!=','TXN_FAILURE')->orderBy('id','desc');
+
+       if ($request->has('search') && $request->get('search')!='') {
+          $keyword=$request->get('search');
+          $paytmstatus=$paytmstatus->where(function ($query) use($keyword) {
+          $query->where('id', 'like', '%' . $keyword . '%')
+           ->orWhere('orderid', 'like', '%' . $keyword . '%')
+           ->orWhere('mid', 'like', '%' . $keyword . '%')
+           ->orWhere('txnamount', 'like', '%' . $keyword . '%')
+           ->orWhere('paymentmode', 'like', '%' . $keyword . '%')
+           ->orWhere('currency', 'like', '%' . $keyword . '%')
+           ->orWhere('txndate', 'like', '%' . $keyword . '%')
+           ->orWhere('status', 'like', '%' . $keyword . '%')
+           ->orWhere('respcode', 'like', '%' . $keyword . '%')
+           ->orWhere('respmsg', 'like', '%' . $keyword . '%')
+           ->orWhere('gateayname', 'like', '%' . $keyword . '%')
+           ->orWhere('banktxnid', 'like', '%' . $keyword . '%')
+           ->orWhere('created_at', 'like', '%' . $keyword . '%')
+           ->orWhere('txnid', 'like', '%' . $keyword . '%');
+      });
+       }
+   $paytmstatus=$paytmstatus->paginate(10);
+    return view('paymentreport',compact('paytmstatus'));
+   }
+   public function onepayreport(Request $request){
+    $statuses=onepayresponse::select('stmsg')->where('stmsg','!=',"")->groupBy('stmsg')->get();
+    $onepayresponses=onepayresponse::orderBy('id','desc');
+
+    if ($request->has('search') && $request->get('search')!='') {
+          $keyword=$request->get('search');
+          $onepayresponses=$onepayresponses->where(function ($query) use($keyword) {
+          $query->where('id', 'like', '%' . $keyword . '%')
+           ->orWhere('tno', 'like', '%' . $keyword . '%')
+           ->orWhere('st', 'like', '%' . $keyword . '%')
+           ->orWhere('stmsg', 'like', '%' . $keyword . '%')
+           ->orWhere('tid', 'like', '%' . $keyword . '%')
+           ->orWhere('oprtid', 'like', '%' . $keyword . '%')
+           ->orWhere('mobile', 'like', '%' . $keyword . '%')
+           ->orWhere('amount', 'like', '%' . $keyword . '%')
+           ->orWhere('prb', 'like', '%' . $keyword . '%')
+           ->orWhere('pob', 'like', '%' . $keyword . '%')
+           ->orWhere('dp', 'like', '%' . $keyword . '%')
+           ->orWhere('created_at', 'like', '%' . $keyword . '%')
+           ->orWhere('dr', 'like', '%' . $keyword . '%');
+      });
+       }
+    $onepayresponses=$onepayresponses->paginate(10);
+    return view('onepayreport',compact('onepayresponses','statuses'));
+   }
+   public function walletreport(){
+    $customernames=customer::select('name')->where('name','!=',"")->groupBy('name')->get();
+    //return $customernames;
+    $customers=customer::all();
+    return view('walletreport',compact('customers','customernames'));
+   }
+
 }

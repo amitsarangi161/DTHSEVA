@@ -147,4 +147,8 @@ Route::get('/customers/addcustomer','HomeController@addcustomer');
 Route::post('/savecustomer','HomeController@savecustomer');
 Route::post('/updatecustomer','HomeController@updatecustomer');
 
+Route::get('/reports/paymentreport','HomeController@paymentreport');
+Route::get('/reports/onepayreport','HomeController@onepayreport');
+Route::get('/reports/walletreport','HomeController@walletreport');
+
 });
