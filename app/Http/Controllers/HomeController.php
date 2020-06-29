@@ -13,6 +13,7 @@ use App\Mobilerechargeorder;
 use App\paytmrecharge;
 use App\onepayresponse;
 use App\wallet;
+use Carbon\Carbon;
 
 use Session;
 class HomeController extends Controller
@@ -121,6 +122,8 @@ catch(Exception $e) {
     }
     public function addcustomer(Request $request)
    {
+
+      $data=$request->all();
       $customers=customer::orderBy('created_at', 'desc');
 
        if ($request->has('search') && $request->get('search')!='') {
@@ -133,7 +136,7 @@ catch(Exception $e) {
       });
        }
        $customers=$customers->paginate(10);
-      return view('addcustomer',compact('customers'));
+      return view('addcustomer',compact('customers','data'));
    }
    public function savecustomer(Request $request)
    {
@@ -161,7 +164,7 @@ catch(Exception $e) {
     return back();
    }
    public function paymentreport(Request $request){
-
+    $data=$request->all();
      $paytmstatus=paytmrecharge::where('status','!=','TXN_FAILURE')->orderBy('id','desc');
 
        if ($request->has('search') && $request->get('search')!='') {
@@ -184,11 +187,37 @@ catch(Exception $e) {
       });
        }
    $paytmstatus=$paytmstatus->paginate(10);
-    return view('paymentreport',compact('paytmstatus'));
+    return view('paymentreport',compact('paytmstatus','data'));
    }
    public function onepayreport(Request $request){
     $statuses=onepayresponse::select('stmsg')->where('stmsg','!=',"")->groupBy('stmsg')->get();
     $onepayresponses=onepayresponse::orderBy('id','desc');
+
+    if ($request->has('stmsg')&& $request->get('stmsg')!='') {
+      
+       $onepayresponses=$onepayresponses->where('stmsg',$request->get('stmsg'));
+      
+    }
+
+    if($request->has('fromdate')&& $request->has('todate')){
+       if($request->get('fromdate')!='' &&  $request->get('todate')!='')
+       {
+          $from=$request->get('fromdate').' 00::00::00';
+          $to=$request->get('todate').' 23::59::59';
+          $onepayresponses=$onepayresponses->where('created_at','>=',$from)
+            ->where('created_at','<=',$to);
+       }
+    }
+    else
+    {
+        $date=date('Y-m-d');
+        $from=$date.' 00::00::00';
+          $to=$date.' 23::59::59';
+          $onepayresponses=$onepayresponses->where('created_at','>=',$from)
+            ->where('created_at','<=',$to);
+    }
+
+    
 
     if ($request->has('search') && $request->get('search')!='') {
           $keyword=$request->get('search');
@@ -208,11 +237,11 @@ catch(Exception $e) {
            ->orWhere('dr', 'like', '%' . $keyword . '%');
       });
        }
-    $onepayresponses=$onepayresponses->paginate(10);
+    $onepayresponses=$onepayresponses->get();
     return view('onepayreport',compact('onepayresponses','statuses'));
    }
    public function walletreport(Request $request){
-    $customernames=customer::select('id','name','mobile')->where('name','!=',"")->groupBy('name')->get();
+    $customernames=customer::all();
 
     if($request->has('name'))
     {

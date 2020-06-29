@@ -29,7 +29,7 @@
 			<select name="orderstatus" required="" class="form-control">
 				<option value="ALL" {{(Request('orderstatus')=='ALL')?'selected':''}}>ALL</option>
 				@foreach($orderstatuses as $orderstatus)
-				<option value="{{$orderstatus->orderstatus}}">{{$orderstatus->orderstatus}}</option>
+				<option value="{{$orderstatus->orderstatus}}" {{(Request('orderstatus')==$orderstatus->orderstatus)?'selected':''}}>{{$orderstatus->orderstatus}}</option>
 				@endforeach
 			</select>
 		</td>
@@ -102,7 +102,7 @@ if($order->orderstatus=="CANCEL FROM SELLER"){$bgc="#f3cda9";}
 </table>
 
 </div>
-{{$orders->links()}}
+{{$orders->appends($data)->links()}}
 
  <div class="modal fade" id="myModal" role="dialog">
 

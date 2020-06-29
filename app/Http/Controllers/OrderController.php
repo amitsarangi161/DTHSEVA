@@ -94,6 +94,8 @@ catch(Exception $e){
     public function productorders(Request $request)
     {
 
+      $data=$request->all();
+
       $orderstatuses=order::select('orderstatus')->groupBy('orderstatus')->get();
       $orders=order::select('orders.*','products.name as productname','orderaddresses.address','orderaddresses.pincode','orderaddresses.city','orderaddresses.state','customers.name as orderby')
       ->leftJoin('products','orders.productid','products.id')
@@ -132,7 +134,7 @@ catch(Exception $e){
        }
        $orders=$orders->orderBy('orders.created_at','desc')
        ->paginate(10);
-      return view('productorders',compact('orders','orderstatuses'));
+      return view('productorders',compact('orders','orderstatuses','data'));
     }
 
     public function orderdetails($oid)
@@ -155,6 +157,8 @@ catch(Exception $e){
 
     public function rechargeorders(Request $request)
     {
+
+       $data = $request->all();
        $rechargeorders=rechargeorder::select('rechargeorders.*','brands.brandname','customers.name')
        ->leftJoin('brands','rechargeorders.brandid','=','brands.id')
        ->leftJoin('customers','rechargeorders.user_id','=','customers.id');
@@ -188,11 +192,13 @@ catch(Exception $e){
 
       // return $rechargeorders;
        
-       return view('rechargeorders',compact('rechargeorders'));
+       return view('rechargeorders',compact('rechargeorders','data'));
     }
 
      public function mobilerechargeorders(Request $request)
     {
+
+       $data = $request->all();
        $rechargeorders=Mobilerechargeorder::select('mobilerechargeorders.*','mobileoperators.operatorname','customers.name')
        ->leftJoin('mobileoperators','mobilerechargeorders.brandid','=','mobileoperators.id')
        ->leftJoin('customers','mobilerechargeorders.user_id','=','customers.id');
@@ -230,7 +236,7 @@ catch(Exception $e){
 
       //return $rechargeorders;
        
-       return view('mobilerechargeorders',compact('rechargeorders'));
+       return view('mobilerechargeorders',compact('rechargeorders','data'));
     }
    /* public function changeRechargeOrderstatus(Request $request)
     {

@@ -78,7 +78,7 @@
    
 	
 </div>
-{{$paytmstatus->links()}}
+{{$paytmstatus->appends($data)->links()}}
 
 
       

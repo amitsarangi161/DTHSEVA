@@ -19,5 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/getmydataback', 'AjaxController@mydata');
 Route::any('/onepay-response', 'FrontendController@onepayresponse');
+Route::any('/paytm-webhook-response', 'FrontendController@paytmWebhookResponse');
 
 

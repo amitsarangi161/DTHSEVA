@@ -86,7 +86,7 @@
     </tbody>
 </table>
 </div>
-{{$customers->links()}}
+{{$customers->appends($data)->links()}}
 </div>
 
 </div>

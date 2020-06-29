@@ -122,7 +122,7 @@
         </div>
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <a title="Mobile Recharge Refund" href="/recharge/mobilerechargeorders?paymentstatus=FAILED&orderstatus=SUCCESS&search=">
+          <a title="Mobile Recharge Refund" href="/recharge/mobilerechargeorders?paymentstatus=PAID&orderstatus=FAILED&search=">
           <div class="info-box">
             <span class="info-box-icon bg-aqua"><i class="fa fa-external-link-square"></i></span>
 

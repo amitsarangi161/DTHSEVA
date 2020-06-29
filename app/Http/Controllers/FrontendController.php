@@ -36,9 +36,17 @@ use DB;
 use App\Mobileoperator;
 use App\Mobilerechargeorder;
 use App\onepayresponse;
+use App\paytmresponse;
 
 class FrontendController extends Controller
 {
+
+    public function paytmWebhookResponse(Request $request)
+    {
+         $response=new paytmresponse();
+         $response->response=json_encode($request->all());
+         $response->save();
+    }
 
      public function getOnepayBalance(Request $request)
      {
@@ -94,11 +102,15 @@ class FrontendController extends Controller
 
 
         $rhg=rechargeorder::where('trnid',$onepayresponse->tno)->first();
-                     //return $rhg;
+                     
                      $dthop=brand::where('id',$rhg->brandid)->first();
                      $per=$dthop->cashback_percent;
        $chk_wallet_deduction=$rhg->wallet_deduction;
     if ($onepayresponse->stmsg=='Success') {
+          $r=rechargeorder::where('trnid',$onepayresponse->tno)->first();
+          $r->paymentstatus='PAID';
+          $r->save();
+
         if($rhg->use_wallet='Y' && $chk_wallet_deduction>0)
         {
             $wallet=new wallet();
@@ -143,6 +155,11 @@ class FrontendController extends Controller
                      $per=$mobop->cashback_percent;
                     $chk_wallet_deduction=$rhg->wallet_deduction;
                 if ($onepayresponse->stmsg=='Success') {
+
+                  $r=Mobilerechargeorder::where('trnid',$onepayresponse->tno)->first();
+                  $r->paymentstatus='PAID';
+                  $r->save();
+
                       if ($rhg->use_wallet='Y' && $chk_wallet_deduction>0) {
             $wallet=new wallet();
             $wallet->user_id=$rhg->user_id;
@@ -999,7 +1016,11 @@ catch(Exception $e){
         $paytmrecharge->checksumhash=$response['CHECKSUMHASH'];
         $paytmrecharge->SAVE();
 
+        $order=rechargeorder::where('uniqueoid',$response['ORDERID'])->first();
+        $order->paymentstatus="FAILED";
+        $order->save();
 
+         return redirect('/myaccount/mydthrecharges');
             
         }
 
@@ -1112,6 +1133,12 @@ catch(Exception $e){
         $paytmrecharge->checksumhash=$response['CHECKSUMHASH'];
         $paytmrecharge->type='MOBILE';
         $paytmrecharge->SAVE();
+
+        $order=rechargeorder::where('uniqueoid',$response['ORDERID'])->first();
+        $order->paymentstatus="FAILED";
+        $order->save();
+
+         return redirect('/myaccount/mymobilerecharges');
             
         }
 

@@ -35,14 +35,23 @@
       <!-- bootstrap wysihtml5 - text editor -->
       <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
       <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+ 
+      <link href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
+      
+      
     
-    
+      
+     
+
+
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     
     <script src="{{ asset('plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
@@ -428,6 +437,8 @@ var jqf = $.noConflict();
 });
 
   $('.select2').select2();
+
+
 
 </script>
 

@@ -101,7 +101,7 @@
 		@endforeach
 	</tbody>
 </table>
-{{$rechargeorders->links()}}
+{{$rechargeorders->appends($data)->links()}}
 </div>
 
   <script type="text/javascript">
