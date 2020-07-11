@@ -375,6 +375,11 @@ else
      alert("Please Select a Provider");
      return;
   }
+  else if(rmn.length!=10)
+  {
+      alert("Please put 10 digit valid mobile number");
+                return;
+  }
 
   else if(!rmn.match('[0-9]{10}'))  {
                 alert("Please put 10 digit mobile number");

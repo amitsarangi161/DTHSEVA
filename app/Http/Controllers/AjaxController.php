@@ -209,7 +209,7 @@ class AjaxController extends Controller
 
 
 
-      public function ajaxlogin(Request $request)
+  public function ajaxlogin(Request $request)
     { 
 
         $current_time = Carbon::now();
@@ -355,7 +355,7 @@ return("Fail");*/
     	 return response()->json($channels);
     }
 
-    public function sendOtp(Request $request)
+  public function sendOtp(Request $request)
     {
     	$mob=$request->mob;
         

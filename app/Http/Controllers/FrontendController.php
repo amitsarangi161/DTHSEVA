@@ -46,6 +46,7 @@ class FrontendController extends Controller
          $response=new paytmresponse();
          $response->response=json_encode($request->all());
          $response->save();
+         
     }
 
      public function getOnepayBalance(Request $request)
@@ -914,6 +915,12 @@ catch(Exception $e){
          $response = $transaction->response();
 
          if($transaction->isSuccessful()){
+
+          /*$paytmresponse=new paytmresponse();
+          $paytmresponse->response=json_encode($response);
+          $paytmresponse->save();*/
+
+
         $chk=paytmrecharge::where('orderid',$response['ORDERID'])
              ->where('banktxnid',$response['BANKTXNID'])
              ->count();
@@ -1030,7 +1037,15 @@ catch(Exception $e){
   {
          $transaction = PaytmWallet::with('receive');
          $response = $transaction->response();
+
          if($transaction->isSuccessful()){
+
+         /* $paytmresponse=new paytmresponse();
+          $paytmresponse->response=json_encode($response);
+         
+          $paytmresponse->save();*/
+         
+
            $chk=paytmrecharge::where('orderid',$response['ORDERID'])
              ->where('banktxnid',$response['BANKTXNID'])
              ->count();

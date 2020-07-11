@@ -21,4 +21,12 @@ Route::get('/getmydataback', 'AjaxController@mydata');
 Route::any('/onepay-response', 'FrontendController@onepayresponse');
 Route::any('/paytm-webhook-response', 'FrontendController@paytmWebhookResponse');
 
+Route::post('/sliders','ApiController@sliders');
+Route::post('/mobile-operators','ApiController@mobileOperators');
+Route::post('/dth-operators','ApiController@dthOperators');
+Route::post('/user-signup','ApiController@userRegister');
+Route::post('/user-signin','ApiController@ajaxlogin');
+Route::post('/sendotp','ApiController@sendOtp');
+//Route::post('');
+
 
