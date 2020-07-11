@@ -27,6 +27,9 @@ Route::post('/dth-operators','ApiController@dthOperators');
 Route::post('/user-signup','ApiController@userRegister');
 Route::post('/user-signin','ApiController@ajaxlogin');
 Route::post('/sendotp','ApiController@sendOtp');
+Route::middleware('APIToken')->group(function () {
+    Route::post('/logout','ApiController@postLogout');
+  });
 //Route::post('');
 
 
