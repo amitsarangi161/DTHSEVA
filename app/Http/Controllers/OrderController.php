@@ -32,7 +32,7 @@ class OrderController extends Controller
 
        $paytmstatus=paytmrecharge::where('orderid',$rechargeorder->uniqueoid)->get();
 
-       return compact('rechargeorder','paytmstatus');
+       return view('viewwallettopup',compact('rechargeorder','paytmstatus'));
     }
 
     public function viewdthrecharge($id)
