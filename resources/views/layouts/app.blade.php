@@ -345,6 +345,7 @@
             <!-- <li class="{{ Request::is('recharge/checkmybalance') ? 'active' : '' }}"><a href="/recharge/checkmybalance"><i class="fa fa-circle-o text-red"></i>CHECK MY BALANCE</a></li> -->
                <li class="{{ Request::is('recharge/rechargeorders') ? 'active' : '' }}"><a href="/recharge/rechargeorders"><i class="fa fa-circle-o text-red"></i>DTH Recharge Orders</a></li>
                <li class="{{ Request::is('recharge/mobilerechargeorders') ? 'active' : '' }}"><a href="/recharge/mobilerechargeorders"><i class="fa fa-circle-o text-red"></i>Mobile Recharge Orders</a></li>
+               <li class="{{ Request::is('recharge/wallettop-up') ? 'active' : '' }}"><a href="/recharge/wallettop-up"><i class="fa fa-circle-o text-red"></i>Wallet Top-up</a></li>
              
         
           </ul>

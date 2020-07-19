@@ -26,6 +26,11 @@
 }
 </style>
 <div class="row description-header text-center" style="background-color: #767966;margin-bottom: 10px;"><span>MY WALLET</span>
+
+<span class="pull-left">
+   <button type="button" onclick="openaddMoney();" class="btn btn-primary">ADD MONEY</button>
+</span>
+
 <span class="pull-right">
     @php
     $bal=$wallets->sum('credit')-$wallets->sum('debit');
@@ -119,10 +124,44 @@
         </tfoot>
     </table>
 </div> -->
+ 
+  <div class="modal fade" id="addMoney" role="dialog" data-backdrop="static" data-keyboard="false">
+   
+
+      
+         <div class="container">
+             <form action="/rechargewallet" method="POST">
+                    {{csrf_field()}}
+         <div class="row ">
+           <div class="col-md-6 col-md-offset-3 ">
+               <div class="order">
+                <span id="msg1"></span>
+    <div class="form-group">
+        <label class="info-title" for="exampleInputEmail1">Enter Top-up Amount<span>*</span></label>
+        <input type="number" class="form-control unicase-form-control text-input" name="amount" autocomplete="off" required="">
+    </div>
+   
+    
+    <div class="form-group">
+    <button  class="btn btn-success" type="submit">SUBMIT</button>
+    <button class="btn btn-danger" type="button" data-dismiss="modal">CANCEL</button>
+       </div>
+           </div>
+         </div>
+         </div>
+     </form>
+      </div>
+      
+      
+  </div>
 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
     <script type="text/javascript">
     $('#example').dataTable();
+
+    function openaddMoney() {
+        $("#addMoney").modal('show');
+    }
     </script>
 @endsection
 @include('layouts.sidemenu')

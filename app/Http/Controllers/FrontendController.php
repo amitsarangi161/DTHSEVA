@@ -21,6 +21,7 @@ use App\cancelorder;
 use App\company;
 use App\recharge;
 use App\paytmrecharge;
+use App\walletorder;
 use Illuminate\Support\Facades\Input;
 use App\rechargeorder;
 use App\wallet;
@@ -617,6 +618,8 @@ $oid=base64_encode($orderid);
   
   return redirect( $response['longurl']);
   }
+
+
   public function responsedata()
   {
       
@@ -826,6 +829,16 @@ catch(Exception $e){
          return redirect('/myaccount/mymobilerecharges');
     
   }
+  public function rechargewallet(Request $request)
+  {
+       $walletorder=new walletorder();
+       $walletorder->uniqueoid=time();
+       $walletorder->user_id=Session::get('userid')['uid'];
+       $walletorder->amounttopay=$request->amount;
+       $walletorder->save();
+       $orderid=base64_encode($walletorder->uniqueoid);
+       return redirect('/dowalletrechargenow/'.$orderid);
+  }
 
   public function pgroutingrecharge($oid)
   {
@@ -873,6 +886,28 @@ catch(Exception $e){
       }
   }  
 
+  public function pgroutingwalletrecharge($oid)
+{
+   $orderid=base64_decode($oid);
+   $orderdet=walletorder::where('uniqueoid',$orderid)->first();
+   $cid=$orderdet->user_id;
+   $custdet=customer::find($cid);
+
+    $payment = PaytmWallet::with('receive');
+    $payment->prepare([
+          'order' =>$orderid, // your order id taken from cart
+          'user' => 'customer_id_'.$cid.'-'.time(), // your user id
+          'mobile_number' =>$custdet->mobile, // your customer mobile no
+          'email' => $custdet->email, // your user email address
+          'amount' => $orderdet->amounttopay, // amount will be paid in INR.
+          'callback_url' => env('PAYTM_CALLBACK_URL_WALLET') // callback URL
+        ]);
+
+      
+        
+     return $payment->receive();
+
+}
   public function pgroutingmobilerecharge($oid)
   {
         
@@ -880,7 +915,7 @@ catch(Exception $e){
    $orderdet=Mobilerechargeorder::where('uniqueoid',$orderid)->first();
    $cid=$orderdet->user_id;
    $custdet=customer::find($cid);
-     if($orderdet->use_wallet='Y' && $orderdet->amttopay==0)
+  if($orderdet->use_wallet='Y' && $orderdet->amttopay==0)
    {
            return $this->mobRechargeFromWallet($orderid);
    }
@@ -1033,7 +1068,85 @@ catch(Exception $e){
 
 
     return redirect('/myaccount/mydthrecharges');
-  }public function paymentCallbackMobile()
+  }
+  public function paymentCallbackWallet()
+  {
+       $transaction = PaytmWallet::with('receive');
+       $response = $transaction->response();
+
+         if($transaction->isSuccessful()){
+
+           $chk=paytmrecharge::where('orderid',$response['ORDERID'])
+             ->where('banktxnid',$response['BANKTXNID'])
+             ->count();
+
+        if($chk==0)
+       {
+           $orderdet=walletorder::where('uniqueoid',$response['ORDERID'])->first();
+            $walletchk=wallet::where('user_id',$orderdet->user_id)
+                      ->where('order_id',$orderdet->uniqueoid)
+                      ->count();
+            if ($walletchk==0) {
+              $wallet=new wallet();
+            $wallet->user_id=$orderdet->user_id;
+            $wallet->order_id=$orderdet->uniqueoid;
+            $wallet->credit=$orderdet->amounttopay;
+            $wallet->debit=0;
+            $wallet->addedby=$orderdet->user_id;
+            $wallet->type='WALLET';
+            $wallet->save();
+            }
+            
+        
+
+        $order=walletorder::where('uniqueoid',$response['ORDERID'])->first();
+        $order->paymentstatus="PAID";
+        $order->orderstatus="SUCCESS";
+        $order->save();
+
+        $paytmrecharge=new paytmrecharge();
+        $paytmrecharge->orderid=$response['ORDERID'];
+        $paytmrecharge->mid=$response['MID'];
+        $paytmrecharge->txnid=$response['TXNID'];
+        $paytmrecharge->txnamount=$response['TXNAMOUNT'];
+        $paytmrecharge->paymentmode=$response['PAYMENTMODE'];
+        $paytmrecharge->currency=$response['CURRENCY'];
+        $paytmrecharge->txndate=$response['TXNDATE'];
+        $paytmrecharge->status=$response['STATUS'];
+        $paytmrecharge->respcode=$response['RESPCODE'];
+        $paytmrecharge->respmsg=$response['RESPMSG'];
+        $paytmrecharge->gateayname=$response['GATEWAYNAME'];
+        $paytmrecharge->banktxnid=$response['BANKTXNID'];
+        $paytmrecharge->checksumhash=$response['CHECKSUMHASH'];
+        $paytmrecharge->type='WALLET';
+        $paytmrecharge->SAVE();
+      }
+    }
+     else if($transaction->isFailed()){
+
+        $order=walletorder::where('uniqueoid',$response['ORDERID'])->first();
+        $order->paymentstatus="FAILED";
+        $order->orderstatus="FAILED";
+        $order->save();
+
+        $paytmrecharge=new paytmrecharge();
+        $paytmrecharge->orderid=$response['ORDERID'];
+        $paytmrecharge->mid=$response['MID'];
+     
+        $paytmrecharge->txnamount=$response['TXNAMOUNT'];
+        $paytmrecharge->currency=$response['CURRENCY'];
+        $paytmrecharge->status=$response['STATUS'];
+        $paytmrecharge->respcode=$response['RESPCODE'];
+        $paytmrecharge->respmsg=$response['RESPMSG'];
+        $paytmrecharge->banktxnid=$response['BANKTXNID'];
+        $paytmrecharge->checksumhash=$response['CHECKSUMHASH'];
+        $paytmrecharge->type='WALLET';
+        $paytmrecharge->SAVE();
+        return redirect('/myaccount/mywallet');
+      }
+       return redirect('/myaccount/mywallet');
+  }
+  public function paymentCallbackMobile()
   {
          $transaction = PaytmWallet::with('receive');
          $response = $transaction->response();

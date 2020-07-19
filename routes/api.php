@@ -27,8 +27,28 @@ Route::post('/dth-operators','ApiController@dthOperators');
 Route::post('/user-signup','ApiController@userRegister');
 Route::post('/user-signin','ApiController@ajaxlogin');
 Route::post('/sendotp','ApiController@sendOtp');
+Route::post('/circles','ApiController@circles');
 Route::middleware('APIToken')->group(function () {
+
+    Route::post('/profile','ApiController@profile');
+    Route::post('/update-profile','ApiController@updateProfile');
+    Route::post('/change-password','ApiController@changePassword');
     Route::post('/logout','ApiController@postLogout');
+    Route::post('/recharge-history','ApiController@rechargeHistory');
+    Route::post('/create-mobile-recharge','ApiController@createMobileRecharge');
+    Route::post('/create-dth-recharge','ApiController@createDthRecharge');
+    Route::post('/create-wallet-recharge','ApiController@createWalletRecharge');
+
+    Route::post('/mobile-recharge','ApiController@mobileRecharge');
+    Route::post('/dth-recharge','ApiController@dthRecharge');
+    Route::post('/wallet-recharge','ApiController@walletRecharge');
+
+    
+ 
+
+    Route::post('/wallet-history','ApiController@walletHistory');
+    Route::post('/wallet-balance','ApiController@walletbalance');
+    
   });
 //Route::post('');
 

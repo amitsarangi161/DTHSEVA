@@ -14,6 +14,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
          '/payment/status*',
          '/payment/reponsestatus*',
-         '/payment/mobile-reponsestatus'
+         '/payment/mobile-reponsestatus',
+         '/payment/wallet-reponsestatus'
     ];
 }

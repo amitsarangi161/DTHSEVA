@@ -60,6 +60,8 @@ Route::get('/tnc','FrontendController@tnc');
 Route::get('/aboutus','FrontendController@aboutus');
 Route::get('/dorechargenow/{oid}','FrontendController@pgroutingrecharge');
 Route::get('/domobilerechargenow/{oid}','FrontendController@pgroutingmobilerecharge');
+Route::get('/dowalletrechargenow/{oid}','FrontendController@pgroutingwalletrecharge');
+
 Route::get('/responsedata','FrontendController@responsedata');
 
 Route::get('/rechargeresponsedata','FrontendController@rechargeresponsedata');
@@ -75,7 +77,10 @@ Route::post('/rechargecontactus','FrontendController@rechargecontactus');
 Route::get('/payment','PaytmController@pay');
 Route::post('/payment/status', 'PaytmController@paymentCallback');
 Route::post('/payment/reponsestatus', 'FrontendController@paymentCallback');
-Route::post('/payment/mobile-reponsestatus', 'FrontendController@paymentCallbackMobile');
+Route::post('/payment/mobile-reponsestatus', 'FrontendController@paymentCallackMobile');
+Route::post('/payment/wallet-reponsestatus', 'FrontendController@paymentCallbackWallet');
+
+Route::post('/rechargewallet', 'FrontendController@rechargewallet');
 
 
 Auth::routes();
@@ -88,6 +93,8 @@ Route::get('/editoperators/{id}','MobileRechargeController@editoperators');
 Route::post('/saveoperators','MobileRechargeController@saveoperators');
 Route::post('/updateoperator/{id}','MobileRechargeController@updateoperator');
 Route::get('/viewdthrecharge/{id}','OrderController@viewdthrecharge');
+Route::get('/viewwallettopup/{id}','OrderController@viewwallettopup');
+
 Route::get('/viewmobilerecharge/{id}','OrderController@viewmobilerecharge');
 
 
@@ -120,6 +127,7 @@ Route::get('/orders/orderdetails/{oid}','OrderController@orderdetails');
 
 
 Route::get('/recharge/rechargeorders','OrderController@rechargeorders');
+Route::get('/recharge/wallettop-up','OrderController@walletTopup');
 Route::get('/recharge/mobilerechargeorders','OrderController@mobilerechargeorders');
 
 Route::get('/cms/companypolicies','HomeController@companypolicy');
@@ -143,5 +151,6 @@ Route::post('/updatecustomer','HomeController@updatecustomer');
 Route::get('/reports/paymentreport','HomeController@paymentreport');
 Route::get('/reports/onepayreport','HomeController@onepayreport');
 Route::get('/reports/walletreport','HomeController@walletreport');
+
 
 });

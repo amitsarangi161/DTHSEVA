@@ -13,11 +13,27 @@ use App\response;
 use App\Mobilerechargeorder;
 use App\onepayresponse;
 use App\wallet;
+use App\walletorder;
+
+
 
 
 class OrderController extends Controller
 {
 
+
+    public function viewwallettopup($id)
+    {
+      $rechargeorder=walletorder::select('walletorders.*','customers.name','customers.mobile')
+       ->leftJoin('customers','walletorders.user_id','=','customers.id')
+       ->orderBy('walletorders.created_at','desc')
+       ->where('walletorders.id',$id)
+       ->first();
+
+       $paytmstatus=paytmrecharge::where('orderid',$rechargeorder->uniqueoid)->get();
+
+       return compact('rechargeorder','paytmstatus');
+    }
 
     public function viewdthrecharge($id)
     {
@@ -153,7 +169,41 @@ catch(Exception $e){
      //  dd($productdetails);
     	return view('orderdetails',compact('order','userdetails','productdetails'));
     }
+    public function walletTopup(Request $request)
+    {
+      $data = $request->all();
+      $rechargeorders=walletorder::select('walletorders.*','customers.name','customers.mobile')
+               ->leftJoin('customers','walletorders.user_id','=','customers.id');
+      if ($request->has('paymentstatus') && $request->get('paymentstatus')!='ALL') {
 
+
+          $rechargeorders=$rechargeorders->where('paymentstatus',$request->get('paymentstatus'));
+       }
+       if ($request->has('orderstatus') && $request->get('orderstatus')!='ALL') {
+
+
+          $rechargeorders=$rechargeorders->where('orderstatus',$request->get('orderstatus'));
+       }
+         if ($request->has('search') && $request->get('search')!='') {
+          $keyword=$request->get('search');
+          $rechargeorders=$rechargeorders->where(function ($query) use($keyword) {
+        $query->where('walletorders.id', 'like', '%' . $keyword . '%')
+           ->orwhere('walletorders.uniqueoid', 'like', '%' . $keyword . '%')
+           ->orwhere('walletorders.orderstatus', 'like', '%' . $keyword . '%')
+           ->orwhere('walletorders.paymentstatus', 'like', '%' . $keyword . '%')
+           ->orwhere('walletorders.amounttopay', 'like', '%' . $keyword . '%')
+           ->orwhere('walletorders.created_at', 'like', '%' . $keyword . '%')
+           ->orWhere('customers.mobile', 'like', '%' . $keyword . '%')
+           ->orWhere('customers.name', 'like', '%' . $keyword . '%');
+      });
+       }
+       $rechargeorders=$rechargeorders->orderBy('walletorders.created_at','desc')
+       ->paginate(10);
+
+       return view('wallettopup',compact('rechargeorders','data'));
+
+
+    }
 
     public function rechargeorders(Request $request)
     {

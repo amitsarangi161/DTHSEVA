@@ -33,6 +33,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function walletTopup()
+    {
+      
+    }
     public function index()
     {
         $customers=customer::where('id','>',0)->count();
