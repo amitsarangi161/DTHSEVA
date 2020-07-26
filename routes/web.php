@@ -153,5 +153,9 @@ Route::get('/reports/onepayreport','HomeController@onepayreport');
 Route::get('/reports/walletreport','HomeController@walletreport');
 Route::get('/tickets/rechargetickets','HomeController@rechargetickets');
 
+Route::get('/msetup/managesubadmin','HomeController@managesubadmin');
+Route::post('/saveuser','HomeController@saveuser');
+Route::post('/updateuser','HomeController@updateuser');
+
 
 });

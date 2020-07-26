@@ -13,6 +13,7 @@ use App\Mobilerechargeorder;
 use App\paytmrecharge;
 use App\onepayresponse;
 use App\wallet;
+use App\User;
 use App\rechargeticket;
 use Carbon\Carbon;
 
@@ -34,6 +35,44 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function managesubadmin()
+   {
+    
+      $users=User::all();
+      return view('managesubadmin',compact('users'));
+   }
+
+      public function saveuser(Request $request)
+   {
+      
+     $user=new User();
+       $this->validate($request,[
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'userpassword' => 'required|min:6',
+            'usertype'=>'required|string',
+            
+       ]);
+       $user->name=$request->name;
+       $user->email=$request->email;
+       $user->usertype=$request->usertype;
+       $user->password= bcrypt($request->userpassword);
+       $user->save();
+       Session::flash('msg','User Added Successfully');
+         return back();
+   }
+   public function updateuser(Request $request)
+   {
+      
+      $user=User::find($request->uid);
+      $user->name=$request->name;
+       $user->email=$request->email;
+       $user->usertype=$request->usertype;
+       $user->password= bcrypt($request->userpassword);
+       $user->save();
+    Session::flash('msg','User Updated Successfully');
+    return back();
+   }
     public function rechargetickets()
     {
          $tickets=rechargeticket::select('rechargetickets.*','customers.name','customers.mobile')
