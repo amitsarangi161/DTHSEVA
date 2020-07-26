@@ -83,7 +83,7 @@ div.scrollmenu a {
     </div>
 	<div class="container">
     <div class="contact-page">
-		<div class="row">
+
 
 				<div class="col-md-12 contact-form">
 	<div class="col-md-8 col-md-offset-2 contact-title">
@@ -91,6 +91,7 @@ div.scrollmenu a {
 	</div>
 	<form action="/rechargeOrder" method="POST">
 		{{csrf_field()}}
+    <div class="col-sm-12">
   <div class="col-md-8 col-md-offset-2">
     <div class="form-group">
       <label for="sel1"><strong>Prepaid or Postpaid?</strong></label><br>
@@ -141,7 +142,8 @@ div.scrollmenu a {
       </div>
     
   </div>
-
+  </div>
+  <div class="col-sm-12">
 	<div class="col-md-8 col-md-offset-2">
 		
 			<div class="form-group">
@@ -150,15 +152,18 @@ div.scrollmenu a {
 		  </div>
 		
 	</div>
-  <div class="col-md-8 col-md-offset-2">
+  </div>
+  <div class="col-sm-12">
+  <div class="col-md-8 col-md-offset-2 col-xs-12">
     
       
-         <!-- <button type="button" onclick="openplan();" class="pull-right btn btn-primary btn-sm">view plans</button> -->
+         <button type="button" onclick="openplan();" class="pull-right btn btn-primary btn-sm">view plans</button>
 
     
   </div>
-	
-	<div class="col-md-8 col-md-offset-2">
+</div>
+	<div class="col-sm-12">
+	<div class="col-md-8 col-md-offset-2 col-xs-12">
 			<div class="form-group">
 		    <label class="info-title" for="exampleInputEmail1">Amount<span>*</span></label>
 		    <input type="number" class="form-control unicase-form-control text-input" id="amt" autocomplete="off" name="amount" required="">
@@ -166,24 +171,28 @@ div.scrollmenu a {
         <span style="color: red;font-weight: bold;">* Minimum Recharge Amount Rs 10.00</span>
 		  </div>
 	</div>
+</div>
     @if($walletbal>0)
-    <div class="col-md-8 col-md-offset-2">
-      <div class="checkbox">
-            <label style="font-weight: bold;color: blue;"><input type="checkbox" value="" name="walllet_bal" id="walllet_bal">Use Rs: {{$walletbal}} Wallet balance</label>
+    <div class="col-sm-12">
+      <div class="col-md-8 col-md-offset-2 col-xs-12">
+        <div class="checkbox">
+              <label style="font-weight: bold;color: blue;"><input type="checkbox" value="" name="walllet_bal" id="walllet_bal">Use Rs: {{$walletbal}} Wallet balance</label>
+        </div>
       </div>
-  </div>
+    </div>
   @endif
 	<div class="col-md-8 col-md-offset-2 outer-bottom-small m-t-20">
 		<button onclick="recharge()" type="button" class="btn-upper btn btn-primary checkout-page-button">Recharge</button>
 	</div>
+  </form>
 </div>
-</form>
-			</div><!-- /.contact-page -->
+
+		
 		</div><!-- /.row -->
 </div>
 
 <!--recharge plan-->
-<!-- <div id="view-plans" class="modal fade" role="dialog">
+<div id="view_plans" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -282,7 +291,7 @@ div.scrollmenu a {
         </div>
     </div>
   </div>
-</div> -->
+</div>
 
 <!-- LOGIN MODAL START -->
  <div class="modal fade" id="login" role="dialog">
@@ -386,7 +395,7 @@ $idnum=Session::get('userid')['uid'];
 
 <script type="text/javascript">
 function openplan(){
-  $('#view-plans').modal('show');
+  $('#view_plans').modal('show');
 }
 
 
