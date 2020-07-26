@@ -252,32 +252,51 @@ catch(Exception $e) {
    public function walletreport(Request $request){
     $customernames=customer::all();
     $wallets=array();
+    $customers=array();
     $customerwallets=array();
-
-    if($request->has('name'))
+    $data=$request->all();
+    if($request->has('name') && $request->get('name')!='')
     {
+        
         $wallets=wallet::select('wallets.*','customers.name')
                  ->where('user_id',$request->get('name'))
                  ->leftJoin('customers','wallets.user_id','=','customers.name')
                  ->get();
     }
     else{
+
+       $customers=customer::where('id','>',0);
+
+       if ($request->has('search') && $request->get('search')!='') {
+          $keyword=$request->get('search');
+           $customers=$customers->where(function ($query) use($keyword) {
+          $query->where('id', 'like', '%' . $keyword . '%')
+           ->orWhere('name', 'like', '%' . $keyword . '%')
+           ->orWhere('mobile', 'like', '%' . $keyword . '%');
+      })->orderBy('name','asc')->paginate(15);
+       }
+       else{
+          $customers=$customers->orderBy('name','asc')->paginate(15);
+       }
         
-        foreach ($customernames as $key => $customer) {
-          $wallets=wallet::select('wallets.*')
+      /*  foreach ($customernames as $key => $customer) {
+          $w=wallet::select('wallets.*')
                  ->where('user_id',$customer->id)
                  ->get();
-          $totalcredit=number_format((float)$wallets->sum('credit'), 2, '.', '');
-          $totaldebit=number_format((float)$wallets->sum('debit'), 2, '.', '');
-          $totalbalance=number_format((float)($wallets->sum('credit')-$wallets->sum('debit')), 2, '.', '');
+          $totalcredit=number_format((float)$w->sum('credit'), 2, '.', '');
+          $totaldebit=number_format((float)$w->sum('debit'), 2, '.', '');
+          $totalbalance=number_format((float)($w->sum('credit')-$w->sum('debit')), 2, '.', '');
           $customerwallets[]=array('customer'=>$customer,'credit'=>$totalcredit,'debit'=>$totaldebit,'balance'=>$totalbalance);
             
-        }
+        }*/
         
     }
      $wal=wallet::all();
+     $totalcredit=number_format((float)$wal->sum('credit'), 2, '.', '');
+     $totaldebit=number_format((float)$wal->sum('debit'), 2, '.', '');
      $totalbalance=number_format((float)($wal->sum('credit')-$wal->sum('debit')), 2, '.', '');
-    return view('walletreport',compact('customernames','wallets','customerwallets','totalbalance'));
+   
+    return view('walletreport',compact('customernames','wallets','customerwallets','totalbalance','totalcredit','totaldebit','data','customers'));
    }
 
 }
