@@ -197,10 +197,12 @@ catch(Exception $e){
            ->orWhere('customers.name', 'like', '%' . $keyword . '%');
       });
        }
+       $rec=$rechargeorders->get();
        $rechargeorders=$rechargeorders->orderBy('walletorders.created_at','desc')
        ->paginate(10);
+      $sum=$rec->sum('amounttopay');
 
-       return view('wallettopup',compact('rechargeorders','data'));
+       return view('wallettopup',compact('rechargeorders','data','sum'));
 
 
     }

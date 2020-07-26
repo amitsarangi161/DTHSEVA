@@ -253,8 +253,11 @@ $url=file_get_contents("http://login.questersms.com/api/mt/SendSMS?user=DTHSEVA&
   }
    public function rechargecontactus(Request $request)
    {
+      
        $rechargecontactus=new rechargeticket();
        $rechargecontactus->roid=$request->roid;
+       $rechargecontactus->user_id=Session::get('userid')['uid'];
+       $rechargecontactus->type=$request->type;
        $rechargecontactus->description=$request->description;
        $rechargecontactus->save();
 

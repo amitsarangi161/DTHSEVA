@@ -13,6 +13,7 @@ use App\Mobilerechargeorder;
 use App\paytmrecharge;
 use App\onepayresponse;
 use App\wallet;
+use App\rechargeticket;
 use Carbon\Carbon;
 
 use Session;
@@ -33,9 +34,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function walletTopup()
+    public function rechargetickets()
     {
-      
+         $tickets=rechargeticket::select('rechargetickets.*','customers.name','customers.mobile')
+                ->leftJoin('customers','rechargetickets.user_id','=','customers.id')
+                ->paginate(10);
+
+         return view('rechargetickets',compact('tickets'));
     }
     public function index()
     {
@@ -246,6 +251,8 @@ catch(Exception $e) {
    }
    public function walletreport(Request $request){
     $customernames=customer::all();
+    $wallets=array();
+    $customerwallets=array();
 
     if($request->has('name'))
     {
@@ -255,10 +262,22 @@ catch(Exception $e) {
                  ->get();
     }
     else{
-      $wallets=array();
+        
+        foreach ($customernames as $key => $customer) {
+          $wallets=wallet::select('wallets.*')
+                 ->where('user_id',$customer->id)
+                 ->get();
+          $totalcredit=number_format((float)$wallets->sum('credit'), 2, '.', '');
+          $totaldebit=number_format((float)$wallets->sum('debit'), 2, '.', '');
+          $totalbalance=number_format((float)($wallets->sum('credit')-$wallets->sum('debit')), 2, '.', '');
+          $customerwallets[]=array('customer'=>$customer,'credit'=>$totalcredit,'debit'=>$totaldebit,'balance'=>$totalbalance);
+            
+        }
+        
     }
-   
-    return view('walletreport',compact('customernames','wallets'));
+     $wal=wallet::all();
+     $totalbalance=number_format((float)($wal->sum('credit')-$wal->sum('debit')), 2, '.', '');
+    return view('walletreport',compact('customernames','wallets','customerwallets','totalbalance'));
    }
 
 }

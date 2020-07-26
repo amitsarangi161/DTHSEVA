@@ -319,6 +319,21 @@
           </ul>
   </li>
 
+    <li class="{{ Request::is('tickets*') ? 'active' : '' }} treeview">
+          <a href="#">
+            <i class="fa fa-phone"></i> <span>Tickets</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="{{ Request::is('tickets/rechargetickets') ? 'active' : '' }}"><a href="/tickets/rechargetickets"><i class="fa fa-circle-o text-red"></i>Recharge Tickets</a></li>
+
+         
+             
+          </ul>
+    </li>
+
      <li class="{{ Request::is('reports*') ? 'active' : '' }} treeview">
           <a href="#">
             <i class="fa fa-users"></i> <span>Report</span>

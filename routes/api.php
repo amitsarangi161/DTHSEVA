@@ -21,6 +21,14 @@ Route::get('/getmydataback', 'AjaxController@mydata');
 Route::any('/onepay-response', 'FrontendController@onepayresponse');
 Route::any('/paytm-webhook-response', 'FrontendController@paytmWebhookResponse');
 
+
+
+Route::post('/single-brand-productlist/{bid}','ApiController@singleBrandproductlist');
+Route::post('/view-single-product/{pid}','ApiController@viewSingleProduct');
+
+
+Route::post('/product-brands','ApiController@productBrands');
+Route::post('/brandwise-products','ApiController@brandwiseProducts');
 Route::post('/sliders','ApiController@sliders');
 Route::post('/mobile-operators','ApiController@mobileOperators');
 Route::post('/dth-operators','ApiController@dthOperators');
@@ -29,7 +37,7 @@ Route::post('/user-signin','ApiController@ajaxlogin');
 Route::post('/sendotp','ApiController@sendOtp');
 Route::post('/circles','ApiController@circles');
 Route::middleware('APIToken')->group(function () {
-
+    Route::post('/recharge-details/{uniqid}','ApiController@rechargeDetails');
     Route::post('/profile','ApiController@profile');
     Route::post('/update-profile','ApiController@updateProfile');
     Route::post('/change-password','ApiController@changePassword');
@@ -48,6 +56,9 @@ Route::middleware('APIToken')->group(function () {
 
     Route::post('/wallet-history','ApiController@walletHistory');
     Route::post('/wallet-balance','ApiController@walletbalance');
+
+    Route::post('/create-recharge-ticket','ApiController@createRechargeTicket');
+    Route::post('/user-all-tickets/{uid}','ApiController@userAllTickets');
     
   });
 //Route::post('');

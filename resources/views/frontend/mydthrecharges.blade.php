@@ -89,7 +89,7 @@
         </div>
         <div class="row" style="margin-top: 5px;">
           <div class="col-md-12 col-xs-12">
-            <span class="pull-right help" onclick="opencontactus('{{$rechrgeorder->id}}');"><i class="fa fa-question-circle"></i>
+            <span class="pull-right help" onclick="opencontactus('{{$rechrgeorder->uniqueoid}}','DTH');"><i class="fa fa-question-circle"></i>
               Help</span>
             </div>
         </div>

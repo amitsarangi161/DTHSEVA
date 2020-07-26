@@ -77,7 +77,7 @@ Route::post('/rechargecontactus','FrontendController@rechargecontactus');
 Route::get('/payment','PaytmController@pay');
 Route::post('/payment/status', 'PaytmController@paymentCallback');
 Route::post('/payment/reponsestatus', 'FrontendController@paymentCallback');
-Route::post('/payment/mobile-reponsestatus', 'FrontendController@paymentCallackMobile');
+Route::post('/payment/mobile-reponsestatus', 'FrontendController@paymentCallbackMobile');
 Route::post('/payment/wallet-reponsestatus', 'FrontendController@paymentCallbackWallet');
 
 Route::post('/rechargewallet', 'FrontendController@rechargewallet');
@@ -151,6 +151,7 @@ Route::post('/updatecustomer','HomeController@updatecustomer');
 Route::get('/reports/paymentreport','HomeController@paymentreport');
 Route::get('/reports/onepayreport','HomeController@onepayreport');
 Route::get('/reports/walletreport','HomeController@walletreport');
+Route::get('/tickets/rechargetickets','HomeController@rechargetickets');
 
 
 });

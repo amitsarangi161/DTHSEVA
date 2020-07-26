@@ -399,13 +399,12 @@ border-top: 5px solid #de5e00;
     {{csrf_field()}}
                 <h3>FEEDBACK</h3>
        <input type="hidden" name="roid" id="roid">
+       <input type="hidden" name="type" id="rtype">
       
 
         <div class="form-group reason">
         <label class="info-title" for="exampleInputEmail2">Description<span>*</span></label>
-       <textarea name="description" class="form-control">
-        
-       </textarea>
+       <textarea name="description" class="form-control"></textarea>
       </div>
 
  
@@ -513,10 +512,11 @@ border-top: 5px solid #de5e00;
 	}
    
 
-   function opencontactus(roid)
+   function opencontactus(roid,type)
    {
       $('#contactUs').modal('show');
       $("#roid").val(roid);
+      $("#rtype").val(type);
 
    }
 </script>
