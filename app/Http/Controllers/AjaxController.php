@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\channel;
-use App\customer;
 use App\otp;
 use App\product;
 use DB;
@@ -14,13 +13,52 @@ use Carbon\Carbon;
 use App\rechargeorder;
 use App\coupon;
 use App\Mobilerechargeorder;
-
+use App\User;
+use App\customer;
+use App\assigneduser;
 use App\wallet;
 
 
 
 class AjaxController extends Controller
 {
+    public function ajaxremovecustomer(Request $request)
+    {
+        assigneduser::find($request->id)->delete();
+        return response()->json($request->id);
+    }
+    public function ajaxrefreshcustomers()
+    {
+       $userids=assigneduser::select('uid')
+                    ->get();
+       $users=customer::whereNotIn('id',$userids)->get();
+       return response()->json($users);
+    }
+    public function ajaxnewuseraddcustomer(Request $request)
+    {
+      $chk=assigneduser::where('uid','=',$request->uid)->count();
+      if($chk == 0){
+      $addcustomer=new assigneduser();
+      $addcustomer->adminid=$request->adminid;
+      $addcustomer->uid=$request->uid;
+      $addcustomer->save();
+      return response()->json($addcustomer);
+      }else{
+      Session::flash('err','Duplicate Entry please try Again');
+      }
+      
+    }
+    public function ajaxgetusersubadmin(Request $request)
+    {
+
+      
+          $users=assigneduser::select('assignedusers.*','customers.name','customers.mobile')
+                ->leftJoin('customers','assignedusers.uid','=','customers.id')
+                ->where('adminid',$request->adminid)
+                ->get();
+
+          return response()->json($users);
+    }
   public function checkcouponcode(Request $request)
   {
       $coupon=coupon::where('couponname',$request->couponcode)->first();

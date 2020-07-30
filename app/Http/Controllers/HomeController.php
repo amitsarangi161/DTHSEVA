@@ -15,6 +15,7 @@ use App\onepayresponse;
 use App\wallet;
 use App\User;
 use App\rechargeticket;
+use App\assigneduser;
 use Carbon\Carbon;
 
 use Session;
@@ -35,6 +36,35 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function viewallassignedusers()
+    {
+         $subadmins=User::where('usertype','SUB ADMIN')->get();
+         $finalusershodsarray=array();
+         foreach ($subadmins as $key => $subadmin) {
+            $customers=assigneduser::select('assignedusers.*','customers.name','customers.mobile','assignedusers.id as unhid')
+                ->leftJoin('customers','assignedusers.uid','=','customers.id')
+                ->where('adminid',$subadmin->id)
+                ->get();
+            $finalsubadminsarray[]=[
+              'adminid'=>$subadmin->id,
+              'subadminname'=>$subadmin->name,
+              'customers'=>$customers
+
+            ];
+         }
+         //return $finalsubadminsarray;
+         return view('viewallassignedusers',compact('finalsubadminsarray'));
+    }
+     public function assigneduser()
+   {
+    
+      $users=User::where('usertype','=','SUB ADMIN')->get();
+      $userids=assigneduser::select('uid')
+                    ->get();
+      $customers=customer::whereNotIn('id',$userids)->get();
+      //return $users;
+      return view('assigneduser',compact('users','customers'));
+   }
     public function managesubadmin()
    {
     

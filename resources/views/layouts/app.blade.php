@@ -227,6 +227,8 @@
           </a>
           <ul class="treeview-menu">
             <li class="{{ Request::is('msetup/managesubadmin') ? 'active' : '' }}"><a href="/msetup/managesubadmin"><i class="fa fa-circle-o text-red"></i>Manage Sub-Admin</a></li>
+            <li class="{{ Request::is('msetup/assignedusers') ? 'active' : '' }}"><a href="/msetup/assignedusers"><i class="fa fa-circle-o text-red"></i>Assigned Users</a></li>
+            <li class="{{ Request::is('msetup/viewallassignedusers') ? 'active' : '' }}"><a href="/msetup/viewallassignedusers"><i class="fa fa-circle-o text-red"></i>View all Assigned Users</a></li>
             <li class="{{ Request::is('msetup/brands') ? 'active' : '' }}"><a href="/msetup/brands"><i class="fa fa-circle-o text-red"></i>Brands</a></li>
             <li class="{{ Request::is('msetup/mobileoperators') ? 'active' : '' }}"><a href="/msetup/mobileoperators"><i class="fa fa-circle-o text-red"></i>Mobile Operator</a></li>
 

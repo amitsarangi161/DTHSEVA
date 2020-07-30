@@ -157,5 +157,12 @@ Route::get('/msetup/managesubadmin','HomeController@managesubadmin');
 Route::post('/saveuser','HomeController@saveuser');
 Route::post('/updateuser','HomeController@updateuser');
 
+Route::get('/msetup/assignedusers','HomeController@assigneduser');
+Route::post('/ajaxgetusersubadmin','AjaxController@ajaxgetusersubadmin');
+Route::post('/ajaxnewuseraddcustomer','AjaxController@ajaxnewuseraddcustomer');
+Route::post('/ajaxrefreshcustomers','AjaxController@ajaxrefreshcustomers');
+Route::post('/ajaxremovecustomer','AjaxController@ajaxremovecustomer');
+Route::get('/msetup/viewallassignedusers','HomeController@viewallassignedusers');
+
 
 });
