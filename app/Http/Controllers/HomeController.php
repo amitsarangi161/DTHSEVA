@@ -14,6 +14,7 @@ use App\paytmrecharge;
 use App\onepayresponse;
 use App\wallet;
 use App\User;
+use Auth;
 use App\rechargeticket;
 use App\assigneduser;
 use Carbon\Carbon;
@@ -228,6 +229,14 @@ catch(Exception $e) {
        $customer->mobile=$request->mobile;
        $customer->password= "dthseva123";
        $customer->save();
+         $chk=assigneduser::where('uid','=',$customer->id)->count();
+        if($chk == 0){
+        $addcustomer=new assigneduser();
+        $addcustomer->adminid=Auth::id();
+        $addcustomer->uid=$customer->id;
+        $addcustomer->save();
+        }
+
        Session::flash('msg','Customer Added Successfully');
        return back();
    }

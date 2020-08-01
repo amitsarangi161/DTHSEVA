@@ -27,7 +27,7 @@
         </tr>
           <tr>
             <td>EMAIL</td>
-            <td colspan="2"><input type="email" class="form-control" autocomplete="off" name="email" placeholder="ENTER EMAIL ID" ></td>
+            <td colspan="2"><input type="email" class="form-control" required="" autocomplete="off" name="email" placeholder="ENTER EMAIL ID" ></td>
 
           </tr>
           <tr>

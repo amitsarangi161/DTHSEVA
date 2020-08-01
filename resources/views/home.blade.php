@@ -2,7 +2,7 @@
 
 @section('content')
 
-
+@if(Auth::user()->usertype =='ADMIN')
 <div class="row">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
@@ -201,5 +201,6 @@
   }
          
       </script>
+      @endif
 @endsection
 

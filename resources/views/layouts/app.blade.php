@@ -209,6 +209,7 @@
 
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
+          @if(Auth::user()->usertype =='ADMIN')
          <li class="{{ Request::is('/home') ? 'active' : '' }} treeview">
           <a href="/home">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -217,7 +218,7 @@
             </span>
           </a>
           </li>
-
+          
         <li class="{{ Request::is('msetup*') ? 'active' : '' }} treeview">
           <a href="#">
             <i class="fa fa-rss"></i> <span>Master Setups</span>
@@ -307,6 +308,7 @@
              
           </ul>
   </li>
+    @endif
 
         <li class="{{ Request::is('customers*') ? 'active' : '' }} treeview">
           <a href="#">
@@ -337,6 +339,7 @@
           </ul>
     </li>
 
+    @if(Auth::user()->usertype =='ADMIN')
      <li class="{{ Request::is('reports*') ? 'active' : '' }} treeview">
           <a href="#">
             <i class="fa fa-users"></i> <span>Report</span>
@@ -351,7 +354,7 @@
         
           </ul>
      </li>
-
+     @endif
   <li class="{{ Request::is('recharge*') ? 'active' : '' }} treeview">
           <a href="#">
             <i class="fa fa-book"></i> <span>RECHARGE AND BILLS</span>

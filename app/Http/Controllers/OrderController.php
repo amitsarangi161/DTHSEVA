@@ -14,6 +14,9 @@ use App\Mobilerechargeorder;
 use App\onepayresponse;
 use App\wallet;
 use App\walletorder;
+use App\assigneduser;
+use Auth;
+
 
 
 
@@ -172,8 +175,13 @@ catch(Exception $e){
     public function walletTopup(Request $request)
     {
       $data = $request->all();
+      $myids=assigneduser::where('adminid','=',Auth::id())->select('uid')->get();
       $rechargeorders=walletorder::select('walletorders.*','customers.name','customers.mobile')
                ->leftJoin('customers','walletorders.user_id','=','customers.id');
+      if (Auth::user()->usertype == "SUB ADMIN") {
+
+          $rechargeorders=$rechargeorders->whereIn('customers.id',$myids);
+       }
       if ($request->has('paymentstatus') && $request->get('paymentstatus')!='ALL') {
 
 
@@ -211,9 +219,15 @@ catch(Exception $e){
     {
 
        $data = $request->all();
+       $myids=assigneduser::where('adminid','=',Auth::id())->select('uid')->get();
+       //return Auth::user()->usertype;
        $rechargeorders=rechargeorder::select('rechargeorders.*','brands.brandname','customers.name')
        ->leftJoin('brands','rechargeorders.brandid','=','brands.id')
        ->leftJoin('customers','rechargeorders.user_id','=','customers.id');
+       if (Auth::user()->usertype == "SUB ADMIN") {
+
+          $rechargeorders=$rechargeorders->whereIn('customers.id',$myids);
+       }
 
        if ($request->has('paymentstatus') && $request->get('paymentstatus')!='ALL') {
 
@@ -251,12 +265,16 @@ catch(Exception $e){
     {
 
        $data = $request->all();
+       $myids=assigneduser::where('adminid','=',Auth::id())->select('uid')->get();
        $rechargeorders=Mobilerechargeorder::select('mobilerechargeorders.*','mobileoperators.operatorname','customers.name')
        ->leftJoin('mobileoperators','mobilerechargeorders.brandid','=','mobileoperators.id')
        ->leftJoin('customers','mobilerechargeorders.user_id','=','customers.id');
 
 
+       if (Auth::user()->usertype == "SUB ADMIN") {
 
+          $rechargeorders=$rechargeorders->whereIn('customers.id',$myids);
+       }
 
 
        if ($request->has('paymentstatus') && $request->get('paymentstatus')!='ALL') {
