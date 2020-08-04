@@ -280,13 +280,13 @@ catch(Exception $e) {
     $statuses=onepayresponse::select('stmsg')->where('stmsg','!=',"")->groupBy('stmsg')->get();
     $onepayresponses=onepayresponse::orderBy('id','desc');
 
-    if ($request->has('stmsg')&& $request->get('stmsg')!='') {
+    if ($request->has('stmsg')&& $request->get('stmsg')!='ALL') {
       
        $onepayresponses=$onepayresponses->where('stmsg',$request->get('stmsg'));
       
     }
 
-    if($request->has('fromdate')&& $request->has('todate')){
+    if($request->has('fromdate') && $request->has('todate')){
        if($request->get('fromdate')!='' &&  $request->get('todate')!='')
        {
           $from=$request->get('fromdate').' 00::00::00';

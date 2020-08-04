@@ -229,7 +229,7 @@ function refreshusers()
                success:function(data) { 
                     $("#customer").empty();
                      $.each(data,function(key,value){
-                        $("#customer").append('<option value="'+value.id+'">'+value.name+'</option>');
+                        $("#customer").append('<option value="'+value.id+'">'+value.name+'/'+value.mobile+'</option>');
                      });
                 }
               });

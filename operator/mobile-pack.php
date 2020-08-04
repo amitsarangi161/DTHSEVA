@@ -69,11 +69,11 @@ div.scrollmenu a {
 }
 .order
 {
-  margin: 10px 0px;
-  background: #fff;
-  padding: 15px;
-  box-shadow: 1px 0px 20px -7px;
-  border-top: 5px solid #de5e00;
+	margin: 10px 0px;
+	background: #fff;
+	padding: 15px;
+	box-shadow: 1px 0px 20px -7px;
+	border-top: 5px solid #de5e00;
 }
 </style>
 
@@ -81,16 +81,17 @@ div.scrollmenu a {
     <div class="loader">
        
     </div>
-  <div class="container">
+	<div class="container">
     <div class="contact-page">
-    <div class="row">
 
-        <div class="col-md-12 contact-form">
-  <div class="col-md-8 col-md-offset-2 contact-title">
-    <h4>Mobile Recharge</h4>
-  </div>
-  <form action="/rechargeOrder" method="POST">
-    {{csrf_field()}}
+
+				<div class="col-md-12 contact-form">
+	<div class="col-md-8 col-md-offset-2 contact-title">
+		<h4>Mobile Recharge</h4>
+	</div>
+	<form action="/rechargeOrder" method="POST">
+		{{csrf_field()}}
+    <div class="col-sm-12">
   <div class="col-md-8 col-md-offset-2">
     <div class="form-group">
       <label for="sel1"><strong>Prepaid or Postpaid?</strong></label><br>
@@ -104,8 +105,8 @@ div.scrollmenu a {
       <div class="form-group">
         <label for="sel1">Select a Operator</label>
         <select class="form-control"  name="brandid" id="brand" required="">
-          <option value="">Select a Operator</option>
-          @foreach($operators as $operator)
+        	<option value="">Select a Operator</option>
+        	@foreach($operators as $operator)
           <option value="{{$operator->id}}">{{$operator->operatorname}}</option>
          @endforeach
         </select>
@@ -141,49 +142,57 @@ div.scrollmenu a {
       </div>
     
   </div>
-
-  <div class="col-md-8 col-md-offset-2">
-    
-      <div class="form-group">
-        <label class="info-title" for="exampleInputName">Mobile No.<span>*</span></label>
-        <input type="number" class="form-control unicase-form-control text-input" id="rmn" name="mobile" required="">
-      </div>
-    
   </div>
-  <div class="col-md-8 col-md-offset-2">
+  <div class="col-sm-12">
+	<div class="col-md-8 col-md-offset-2">
+		
+			<div class="form-group">
+		    <label class="info-title" for="exampleInputName">Mobile No.<span>*</span></label>
+		    <input type="number" class="form-control unicase-form-control text-input" id="rmn" name="mobile" required="">
+		  </div>
+		
+	</div>
+  </div>
+  <div class="col-sm-12">
+  <div class="col-md-8 col-md-offset-2 col-xs-12">
     
       
-         <!-- <button type="button" onclick="openplan();" class="pull-right btn btn-primary btn-sm">view plans</button> -->
+         <button type="button" onclick="openplan();" class="pull-right btn btn-primary btn-sm">view plans</button>
 
     
   </div>
-  
-  <div class="col-md-8 col-md-offset-2">
-      <div class="form-group">
-        <label class="info-title" for="exampleInputEmail1">Amount<span>*</span></label>
-        <input type="number" class="form-control unicase-form-control text-input" id="amt" autocomplete="off" name="amount" required="">
+</div>
+	<div class="col-sm-12">
+	<div class="col-md-8 col-md-offset-2 col-xs-12">
+			<div class="form-group">
+		    <label class="info-title" for="exampleInputEmail1">Amount<span>*</span></label>
+		    <input type="number" class="form-control unicase-form-control text-input" id="amt" autocomplete="off" name="amount" required="">
 
         <span style="color: red;font-weight: bold;">* Minimum Recharge Amount Rs 10.00</span>
-      </div>
-  </div>
-    @if($walletbal>0)
-    <div class="col-md-8 col-md-offset-2">
-      <div class="checkbox">
-            <label style="font-weight: bold;color: blue;"><input type="checkbox" value="" name="walllet_bal" id="walllet_bal">Use Rs: {{$walletbal}} Wallet balance</label>
-      </div>
-  </div>
-  @endif
-  <div class="col-md-8 col-md-offset-2 outer-bottom-small m-t-20">
-    <button onclick="recharge()" type="button" class="btn-upper btn btn-primary checkout-page-button">Recharge</button>
-  </div>
+		  </div>
+	</div>
 </div>
-</form>
-      </div><!-- /.contact-page -->
-    </div><!-- /.row -->
+    @if($walletbal>0)
+    <div class="col-sm-12">
+      <div class="col-md-8 col-md-offset-2 col-xs-12">
+        <div class="checkbox">
+              <label style="font-weight: bold;color: blue;"><input type="checkbox" value="" name="walllet_bal" id="walllet_bal">Use Rs: {{$walletbal}} Wallet balance</label>
+        </div>
+      </div>
+    </div>
+  @endif
+	<div class="col-md-8 col-md-offset-2 outer-bottom-small m-t-20">
+		<button onclick="recharge()" type="button" class="btn-upper btn btn-primary checkout-page-button">Recharge</button>
+	</div>
+  </form>
+</div>
+
+		
+		</div><!-- /.row -->
 </div>
 
 <!--recharge plan-->
-<!-- <div id="view-plans" class="modal fade" role="dialog">
+<div id="view_plans" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -282,7 +291,7 @@ div.scrollmenu a {
         </div>
     </div>
   </div>
-</div> -->
+</div>
 
 <!-- LOGIN MODAL START -->
  <div class="modal fade" id="login" role="dialog">
@@ -294,9 +303,9 @@ div.scrollmenu a {
                <div class="order">
      <form class="register-form outer-top-xs" role="form" action="/userlogin" method="post">
 
-    {{csrf_field()}}
-                <h3>Login to your account first</h3>
-    <div  id="msg2">          
+		{{csrf_field()}}
+               	<h3>Login to your account first</h3>
+    <div  id="msg2">        	
     
     </div>
     <div class="form-group">
@@ -316,9 +325,9 @@ div.scrollmenu a {
       <div class="input-group-append">
     <button class="btn btn-outline-secondary" type="button" onclick="sendOtp()"><span>Login with OTP</span></button>
   </div>
-             
-             
-           
+					   
+					   
+					 
     <div class="form-group">
     <button class="btn btn-success" type="button" onclick="loginnow()">Login</button>
     <button class="btn btn-danger" type="button" data-dismiss="modal">CANCEL</button>
@@ -386,7 +395,7 @@ $idnum=Session::get('userid')['uid'];
 
 <script type="text/javascript">
 function openplan(){
-  $('#view-plans').modal('show');
+  $('#view_plans').modal('show');
 }
 
 
@@ -553,8 +562,8 @@ function openplan(){
   }
 
 }
-  function recharge()
-  {
+	function recharge()
+	{
     var brand=$('#brand').val();
     var rmn=$('#rmn').val();
     var amt=$('#amt').val();
@@ -603,16 +612,16 @@ if (chk) {
          dorechargeorder();
     }
 }
-    
-    
-  }
+		
+		
+	}
 
-  function loginnow()
-  {
-    var mob=$('#mob').val();
-    var otp=$('#otp').val();
-    var pass=$('#pass').val();
-    
+	function loginnow()
+	{
+		var mob=$('#mob').val();
+		var otp=$('#otp').val();
+		var pass=$('#pass').val();
+		
            
             $.ajaxSetup({
             headers:{
@@ -651,19 +660,19 @@ if (chk) {
                 }
               });
        
-    
-    
-  }
+		
+		
+	}
 
-  function sendOtp() {
-    var mob=$('#mob').val();
-    var otp=$('#otp').val();
-    if(mob=='')
-    {
-      alert("Mobile no cant be blank");
-    }
-    else
-    {
+	function sendOtp() {
+		var mob=$('#mob').val();
+		var otp=$('#otp').val();
+		if(mob=='')
+		{
+			alert("Mobile no cant be blank");
+		}
+		else
+		{
             $('#p').hide();
             $('#op').show();
             $.ajaxSetup({
@@ -692,13 +701,13 @@ if (chk) {
               });
        }
 
-  }
-  
-  function dorechargeorder()
-  {
-   var brand=$('#brand').val();
-    var rmn=$('#rmn').val();
-    var amt=$('#amt').val();
+	}
+	
+	function dorechargeorder()
+	{
+	 var brand=$('#brand').val();
+		var rmn=$('#rmn').val();
+		var amt=$('#amt').val();
     var circle=$("#circle").val();
     var type=$('input[name=type]:checked').val()
     if($('#walllet_bal').is(':checked')){
@@ -709,7 +718,7 @@ else
      wallet=false;
 }
 
-    
+		
            
           $.ajaxSetup({
             headers:{
@@ -746,8 +755,8 @@ else
                  
                 }
               });
-    
-  }
+		
+	}
 </script>
-    
+		
 @endsection

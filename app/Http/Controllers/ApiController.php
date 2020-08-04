@@ -301,6 +301,7 @@ class ApiController extends Controller
       	$id=$request->userid;
       	$orderid=$request->uniqueoid;
       	$paymentstatus=$request->paymentstatus;
+        $gateway=$request->gateway;
       	$orderdet=Mobilerechargeorder::where('uniqueoid',$orderid)->first();
         $cid=$orderdet->user_id;
         $custdet=customer::find($cid);
@@ -315,6 +316,7 @@ class ApiController extends Controller
           else
           {
               $order=Mobilerechargeorder::where('uniqueoid',$orderid)->first();
+              $order->gateway=$gateway;
               $order->paymentstatus="PAID";
               $order->save();
               $od=Mobilerechargeorder::select('mobilerechargeorders.*','mobileoperators.recharge_code','mobileoperators.postpaid_recharge_code')
@@ -388,6 +390,7 @@ class ApiController extends Controller
       	$id=$request->userid;
       	$orderid=$request->uniqueoid;
       	$paymentstatus=$request->paymentstatus;
+        $gateway=$request->gateway;
       	if ($paymentstatus=='SUCCESS') {
       	 $orderdet=walletorder::where('uniqueoid',$orderid)->first();
             $walletchk=wallet::where('user_id',$orderdet->user_id)
@@ -403,12 +406,11 @@ class ApiController extends Controller
             $wallet->type='WALLET';
             $wallet->save();
             }
-            
-        
 
         $order=walletorder::where('uniqueoid',$orderid)->first();
         $order->paymentstatus="PAID";
         $order->orderstatus="SUCCESS";
+        $order->gateway=$gateway;
         $order->save();
         return response()->json(['status'=>'Y','message'=>'REQUEST SUCCESS']);
       	}
@@ -432,6 +434,7 @@ class ApiController extends Controller
       	$id=$request->userid;
       	$orderid=$request->uniqueoid;
       	$paymentstatus=$request->paymentstatus;
+        $gateway=$request->gateway;
       	$orderdet=rechargeorder::where('uniqueoid',$orderid)->first();
         $cid=$orderdet->user_id;
         $custdet=customer::find($cid);
@@ -448,6 +451,7 @@ class ApiController extends Controller
             {
             	$order=rechargeorder::where('uniqueoid',$orderid)->first();
                 $order->paymentstatus="PAID";
+                $order->gateway=$gateway;
                 $order->save();
 
             $od=rechargeorder::select('rechargeorders.*','brands.recharge_code')
@@ -525,6 +529,7 @@ class ApiController extends Controller
       if ($this->validateUser($token)) {
       	$id=$request->userid;
       	$wallets=wallet::where('user_id',$id)->orderBy('created_at','DESC')->paginate(10);
+        
       $wallet=wallet::where('user_id',$id)->get();
       $walletbal=$wallet->sum('credit')-$wallet->sum('debit');
 
