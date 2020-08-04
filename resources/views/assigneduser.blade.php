@@ -72,7 +72,7 @@
         <tr>
           <td><strong>SELECT A CUSTOMER</strong></td>
           <td class="well">
-            <select class="form-control select2" style="width: 200px;" id="customer">
+            <select class="form-control select2" multiple="multiple" style="width: 200px;" id="customer">
               <option value="">Select a customer</option>
               @foreach($customers as $customer)
                <option value="{{$customer->id}}">{{$customer->name}}/{{$customer->mobile}}</option>
@@ -155,8 +155,13 @@
 function newuseraddcustomer()
 {
    var adminid=$("#subadmin").val();
-   var uid=$("#customer").val();
-   
+   //var uid=$("#customer").val();
+   var uid = [];
+        $('#customer option').each(function(i) {
+                if (this.selected == true) {
+                        uid.push(this.value);
+                }
+        });
     if(adminid!='' && uid!=null)
     {
 

@@ -36,16 +36,20 @@ class AjaxController extends Controller
     }
     public function ajaxnewuseraddcustomer(Request $request)
     {
-      $chk=assigneduser::where('uid','=',$request->uid)->count();
+      //return $request->all();
+      $count=sizeof($request->uid);
+      for ($i=0; $i < $count ; $i++) { 
+         $chk=assigneduser::where('uid','=',$request->uid[$i])->count();
       if($chk == 0){
       $addcustomer=new assigneduser();
       $addcustomer->adminid=$request->adminid;
-      $addcustomer->uid=$request->uid;
+      $addcustomer->uid=$request->uid[$i];
       $addcustomer->save();
-      return response()->json($addcustomer);
-      }else{
-      Session::flash('err','Duplicate Entry please try Again');
+       
       }
+      
+      }
+      return response()->json(1);
       
     }
     public function ajaxgetusersubadmin(Request $request)
