@@ -164,5 +164,11 @@ Route::post('/ajaxrefreshcustomers','AjaxController@ajaxrefreshcustomers');
 Route::post('/ajaxremovecustomer','AjaxController@ajaxremovecustomer');
 Route::get('/msetup/viewallassignedusers','HomeController@viewallassignedusers');
 
+Route::post('/updaterechargestatus','OrderController@updaterechargestatus');
+Route::post('/updatemobilerechargestatus','OrderController@updatemobilerechargestatus');
+Route::post('/updatewalletstatus','OrderController@updatewalletstatus');
+
+Route::post('/updaterechargeticket','HomeController@updaterechargeticket');
+
 
 });

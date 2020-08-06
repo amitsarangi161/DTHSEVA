@@ -83,12 +83,15 @@
              @else
               <td><span class="label label-danger">{{$rechargeorder->orderstatus}}</span></td>
 			@endif
+
 			 @if($rechargeorder->paymentstatus=='PENDING')
-			<td><span class="label label-primary">{{$rechargeorder->paymentstatus}}</span></td>
+			<td><span class="label label-primary"ondblclick="openchangestatus('{{$rechargeorder->id}}','{{$rechargeorder->orderstatus}}')">{{$rechargeorder->paymentstatus}}</span></td>
 			@elseif($rechargeorder->paymentstatus=='PAID')
-              <td><span class="label label-success">{{$rechargeorder->paymentstatus}}</span></td>
-             @else
-              <td><span class="label label-danger">{{$rechargeorder->paymentstatus}}</span></td>
+              <td><span class="label label-success"ondblclick="openchangestatus('{{$rechargeorder->id}}','{{$rechargeorder->orderstatus}}')">{{$rechargeorder->paymentstatus}}</span></td>
+            @elseif($rechargeorder->paymentstatus=='FAILED')
+              <td><span class="label label-danger" ondblclick="openchangestatus('{{$rechargeorder->id}}','{{$rechargeorder->orderstatus}}')">{{$rechargeorder->paymentstatus}}</span></td>
+              @else
+               <td><span class="label label-warning">{{$rechargeorder->paymentstatus}}</span></td>
 			@endif
 			<td>{{$rechargeorder->recharge_res_msg}}</td>
 			<td>{{$rechargeorder->created_at}}</td>
@@ -100,6 +103,50 @@
 	</tbody>
 </table>
 {{$rechargeorders->appends($data)->links()}}
+</div>
+<div id="openstatusmodal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><b>CHANGE Recharge Status</b></h4>
+      </div>
+      <div class="modal-body">
+     <form action="/updatemobilerechargestatus" method="post">
+    {{csrf_field()}}
+    <table class="table table-responsive table-hover table-bordered table-striped" >
+        <tr>
+            <td colspan="4" class="text-center bg-navy">CHANGE Recharge Status</td>
+        </tr>
+        <input type="hidden" name="uid" id="uid">
+        
+          <tr>
+              <td>CHANGE PAYMENT STATUS<span style="color: red"> *</span></td>
+            <td colspan="2">
+              <select name="paymentstatus" id="orderstatus" class="form-control"  required>
+                  <option value="">Select a Status</option>
+                  <option value="REFUND">REFUND</option>
+              </select>
+            </td>
+          </tr>
+
+        <tr>
+            <td></td>
+<td colspan="3"><input type="submit" value="Submit" class="btn btn-success" style="float: right ;"></td>
+</tr>
+</table>
+</form>
+
+  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
 </div>
 
   <script type="text/javascript">
@@ -121,6 +168,12 @@ function openreason(val)
 		$(".reason").hide();
 	}
 
+}
+
+function openchangestatus(id,orderstatus){
+	$("#uid").val(id);
+    $('#orderstatus option[value="'+orderstatus+'"]').attr("selected", "selected");
+    $('#openstatusmodal').modal('show');
 }
 
 

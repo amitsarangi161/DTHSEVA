@@ -24,7 +24,28 @@ use Auth;
 class OrderController extends Controller
 {
 
-
+    public function updaterechargestatus(Request $request)
+   {
+      
+      $rechargeorder=rechargeorder::find($request->uid);
+       $rechargeorder->paymentstatus=$request->paymentstatus;
+       $rechargeorder->save();
+        return back();
+   }
+    public function updatemobilerechargestatus(Request $request)
+   {
+      $rechargeorder=Mobilerechargeorder::find($request->uid);
+       $rechargeorder->paymentstatus=$request->paymentstatus;
+       $rechargeorder->save();
+        return back();
+   }
+   public function updatewalletstatus(Request $request)
+   {
+      $rechargeorder=walletorder::find($request->uid);
+       $rechargeorder->paymentstatus=$request->paymentstatus;
+       $rechargeorder->save();
+        return back();
+   }
     public function viewwallettopup($id)
     {
       $rechargeorder=walletorder::select('walletorders.*','customers.name','customers.mobile')

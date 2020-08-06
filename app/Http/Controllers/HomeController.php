@@ -37,6 +37,16 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function updaterechargeticket(Request $request)
+   {
+      
+      $rechargeticket=rechargeticket::find($request->uid);
+       $rechargeticket->status=$request->status;
+       $rechargeticket->action=$request->action;
+       $rechargeticket->save();
+        return back();
+   }
     public function viewallassignedusers()
     {
          $subadmins=User::where('usertype','SUB ADMIN')->get();

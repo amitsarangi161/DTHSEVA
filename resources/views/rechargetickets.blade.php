@@ -62,7 +62,11 @@
 			@else
 			<a href="/viewdthrecharge/{{$id}}" class="btn btn-primary" target="_blank">VIEW</a>
 			@endif
-			<button type="button" class="btn btn-info">ACTION</button>
+			@if($ticket->status !='RESOLVED')
+			<button type="button" class="btn btn-info" onclick="openaction('{{$ticket->id}}','{{$ticket->status}}','{{$ticket->action}}')">ACTION</button>
+			@else
+			<button type="button" class="btn btn-danger">ACTION</button>
+			@endif
 
 		</td>
 
@@ -72,6 +76,65 @@
 </table>
 {{$tickets->links()}}
 </div>
+
+<div id="openactionmodal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><b>CHANGE STATUS</b></h4>
+      </div>
+      <div class="modal-body">
+     <form action="/updaterechargeticket" method="post">
+    {{csrf_field()}}
+    <table class="table table-responsive table-hover table-bordered table-striped" >
+        <tr>
+            <td colspan="4" class="text-center bg-navy">CHANGE STATUS</td>
+        </tr>
+        <input type="hidden" name="uid" id="uid">
+        
+          <tr>
+              <td>CHANGE STATUS<span style="color: red"> *</span></td>
+            <td colspan="2">
+              <select name="status" id="status" class="form-control"  required>
+                  <option value="">Select a Status</option>
+                  <option value="RESOLVED">PROCESSING</option>
+                  <option value="RESOLVED">RESOLVED</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Action<span style="color: red"> *</span></td>
+            <td colspan="2"><textarea class="form-control" autocomplete="off" id="action" name="action" required></textarea></td>
+          </tr>
+
+        <tr>
+            <td></td>
+<td colspan="3"><input type="submit" value="Submit" class="btn btn-success" style="float: right ;"></td>
+</tr>
+</table>
+</form>
+
+  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+	function openaction(id,status,action){
+    $("#uid").val(id);
+    $('#status option[value="'+status+'"]').attr("selected", "selected");
+    $("#action").val(action);
+    $('#openactionmodal').modal('show');
+	}
+</script>
 
 
 @endsection
