@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<style type="text/css">
+  .select2-selection__choice{
+      background-color: red!important;
+  }
+</style>
    @if(Session::has('msg'))
    <p class="alert alert-info text-center">{{ Session::get('msg') }}</p>
    @endif
@@ -72,7 +77,7 @@
         <tr>
           <td><strong>SELECT A CUSTOMER</strong></td>
           <td class="well">
-            <select class="form-control select2" style="width: 200px;" id="customer">
+            <select class="form-control select2" multiple="multiple" style="width: 250px;" id="customer">
               <option value="">Select a customer</option>
               @foreach($customers as $customer)
                <option value="{{$customer->id}}">{{$customer->name}}/{{$customer->mobile}}</option>
@@ -155,8 +160,14 @@
 function newuseraddcustomer()
 {
    var adminid=$("#subadmin").val();
-   var uid=$("#customer").val();
-   
+   //var uid=$("#customer").val();
+   var uid = [];
+        $('#customer option').each(function(i) {
+                if (this.selected == true) {
+                        uid.push(this.value);
+
+                }
+        });
     if(adminid!='' && uid!=null)
     {
 
