@@ -74,6 +74,7 @@
         </tr>
     </thead>
    <tbody>
+   
        
       @foreach($customers as $customer)
        @php
@@ -83,8 +84,10 @@
           $totalcr=number_format((float)$w->sum('credit'), 2, '.', '');
           $totaldr=number_format((float)$w->sum('debit'), 2, '.', '');
           $totalbal=number_format((float)($w->sum('credit')-$w->sum('debit')), 2, '.', '');
-          
+
+
        @endphp
+      
       <tr>
         <td>{{$customer->id}}</td>
         <td>{{$customer->name}}</td>
@@ -142,18 +145,31 @@
             <th>ORDER ID</th>
             <th>CREDIT</th>
             <th>DEBIT</th>
+            <th>BALANCE</th>
             <th>ADDED BY</th>
             <th>TYPE</th>
             <th>CREATED_AT</th>
         </tr>
     </thead>
    <tbody>
+         @php
+       $tbal=0;
+     @endphp
       @foreach($wallets as $wallet)
+      @php
+          if($wallet->credit>0){
+          $tbal=$tbal+$wallet->credit;
+       } 
+       else{
+       $tbal=$tbal-$wallet->debit;
+     } 
+      @endphp
       <tr>
         <td>{{$wallet->id}}</td>
         <td>{{$wallet->order_id}}</td>
         <td>{{$wallet->credit}}</td>
         <td>{{$wallet->debit}}</td>
+        <td>{{$tbal}}</td>
         <td>{{$wallet->name}}</td>
         <td>{{$wallet->type}}</td>
         <td>{{$wallet->created_at}}</td>
