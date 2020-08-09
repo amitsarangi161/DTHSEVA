@@ -49,8 +49,16 @@
 		<td class="text-center">DTH RECHARGES</td>
 	</tr>
 </table>
+  
 
 <div class="well" style="overflow-x:auto;">
+<form action="/exportvcrechargeorders" method="post">
+{{csrf_field()}}
+<input type="hidden" name="paymentstatus" value="{{(Request::get('paymentstatus')!='')? Request::get('paymentstatus') : 'ALL'}}">
+<input type="hidden" name="orderstatus" value="{{(Request::get('paymentstatus')!='')? Request::get('orderstatus') : 'ALL'}}">
+<input type="hidden" name="search" value="{{Request::get('search')}}">
+<button type="submit" class="btn btn-success">EXPORT</button>
+</form>
 <table class="table table-striped table-bordered table-hover table-responsive table-compact">
 	<thead class="bg-navy">
 		<tr>

@@ -38,6 +38,20 @@
 </table>
 @if($onepayresponses)
 <div class="well">
+  <form action="/exportonepayreport" method="post">
+{{csrf_field()}}
+@if(Request::has('stmsg'))
+<input type="hidden" name="stmsg" value="{{(Request::get('stmsg')!='')? Request::get('stmsg') : 'ALL'}}">
+@endif
+@if(Request::has('fromdate'))
+<input type="hidden" name="fromdate" value="{{Request::get('fromdate')}}">
+@endif
+@if(Request::has('todate'))
+<input type="hidden" name="todate" value="{{Request::get('todate')}}">
+@endif
+<input type="hidden" name="search" value="{{Request::get('search')}}">
+<button type="submit" class="btn btn-success">EXPORT</button>
+</form>
   <div class="table-responsive">
   <table class="table table-responsive table-hover table-bordered table-striped">
      <thead>

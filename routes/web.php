@@ -170,5 +170,13 @@ Route::post('/updatewalletstatus','OrderController@updatewalletstatus');
 
 Route::post('/updaterechargeticket','HomeController@updaterechargeticket');
 
+Route::post('/exportvcrechargeorders','OrderController@exportvcrechargeorders');
+Route::post('/exportvcmobilerecharge','OrderController@exportvcmobilerecharge');
+Route::post('/exportvcwallet','OrderController@exportvcwallet');
+Route::post('/exportpaymentreport','HomeController@exportpaymentreport');
+Route::post('/exportonepayreport','HomeController@exportonepayreport');
+Route::post('/exportwalletreport','HomeController@exportwalletreport');
+Route::post('/exportsinglewalletreport','HomeController@exportsinglewalletreport');
+
 
 });

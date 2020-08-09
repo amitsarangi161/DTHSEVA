@@ -59,6 +59,11 @@
 </table>
 @if(sizeof($customers)>0)
 <div class="well">
+<form action="/exportwalletreport" method="post">
+{{csrf_field()}}
+<input type="hidden" name="search" value="{{Request::get('search')}}">
+<button type="submit" class="btn btn-success">EXPORT</button>
+</form>
   <div class="table-responsive">
   <table class="table table-responsive table-hover table-bordered table-striped datatable1" width="100%">
     <thead>
@@ -137,6 +142,12 @@
 
 @if(sizeof($wallets)>0)
 <div class="well">
+<form action="/exportsinglewalletreport" method="post">
+{{csrf_field()}}
+<input type="hidden" name="name" value="{{Request::get('name')}}">
+<button type="submit" class="btn btn-success">EXPORT</button>
+</form>
+
   <div class="table-responsive">
   <table class="table table-responsive table-hover table-bordered table-striped datatable1" width="100%">
     <thead>

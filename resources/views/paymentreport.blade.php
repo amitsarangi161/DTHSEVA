@@ -32,6 +32,11 @@
   </tr>
   </form>
 </table>
+<form action="/exportpaymentreport" method="post">
+{{csrf_field()}}
+<input type="hidden" name="search" value="{{Request::get('search')}}">
+<button type="submit" class="btn btn-success">EXPORT</button>
+</form>
 
 	<div class="table-responsive">
   <table class="table table-responsive table-hover table-bordered table-striped">
