@@ -177,6 +177,7 @@ Route::post('/exportpaymentreport','HomeController@exportpaymentreport');
 Route::post('/exportonepayreport','HomeController@exportonepayreport');
 Route::post('/exportwalletreport','HomeController@exportwalletreport');
 Route::post('/exportsinglewalletreport','HomeController@exportsinglewalletreport');
+Route::post('/exportwalletreportall','HomeController@exportwalletreportall');
 
 
 });

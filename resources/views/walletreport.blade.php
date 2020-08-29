@@ -57,6 +57,10 @@
   </tr>
   
 </table>
+<form action="/exportwalletreportall" method="post">
+{{csrf_field()}}
+<button type="submit" class="btn btn-success">EXPORT ALL</button>
+</form>
 @if(sizeof($customers)>0)
 <div class="well">
 <form action="/exportwalletreport" method="post">
@@ -64,6 +68,7 @@
 <input type="hidden" name="search" value="{{Request::get('search')}}">
 <button type="submit" class="btn btn-success">EXPORT</button>
 </form>
+
   <div class="table-responsive">
   <table class="table table-responsive table-hover table-bordered table-striped datatable1" width="100%">
     <thead>

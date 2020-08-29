@@ -38,6 +38,47 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function exportwalletreportall(Request $request){
+    $customernames=customer::all();
+    $wallets=array();
+    $customers=array();
+    $customerwallets=array();
+    $data=$request->all();        
+    $wallets=wallet::select('wallets.*','customers.name')
+                 ->leftJoin('customers','wallets.user_id','=','customers.id')
+                 ->get();
+  
+    
+      //return $wallets;
+      $customer_array[] = array('id', 'user_id', 'order_id','credit','debit','balance','addedby','type','created_at','updated_at','name');
+       foreach($wallets as $wallet)
+     {
+       
+        $totalbal=number_format((float)($wallet->sum('credit')-$wallet->sum('debit')), 2, '.', '');
+      $customer_array[] = array(
+       'id'  => $wallet->id,
+       'user_id'   => $wallet->user_id,
+       'order_id'  => $wallet->order_id,
+       'credit'    => $wallet->credit,
+       'debit'    => $wallet->debit,
+       'balance'    => $totalbal,
+       'addedby'    => $wallet->addedby,
+       'type'    => $wallet->type,
+       'created_at'    => $wallet->created_at,
+       'updated_at'    => $wallet->updated_at,
+       'name'    => $wallet->name
+      );
+     }
+     Excel::create('Wallet ALL Report', function($excel) use ($customer_array){
+      $excel->setTitle('Wallet ALL Report');
+      $excel->sheet('Wallet ALL Report', function($sheet) use ($customer_array){
+       $sheet->fromArray($customer_array, null, 'A1', false, false);
+      });
+     })->download('xlsx');
+
+    
+   
+    }
     public function exportsinglewalletreport(Request $request){
     $customernames=customer::all();
     $wallets=array();
